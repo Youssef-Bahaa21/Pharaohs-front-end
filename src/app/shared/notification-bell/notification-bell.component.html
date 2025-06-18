@@ -1,0 +1,71 @@
+<button mat-icon-button [matMenuTriggerFor]="notificationMenu" class="notification-bell" (click)="loadRecentNotifications()">
+  <div class="bell-icon-wrapper">
+    <mat-icon [matBadge]="unreadCount" [matBadgeHidden]="unreadCount === 0" matBadgeColor="warn" matBadgeSize="small">
+      notifications
+    </mat-icon>
+  </div>
+</button>
+
+<mat-menu #notificationMenu="matMenu" class="notification-menu" xPosition="before">
+  <!-- Notification Header -->
+  <div class="notification-header">
+    <h3 class="header-title">Notifications</h3>
+    <button
+      (click)="markAllAsRead($event)"
+      [disabled]="unreadCount === 0"
+      class="mark-all-read-btn">
+      <mat-icon class="btn-icon">done_all</mat-icon>
+      <span>Mark all as read</span>
+    </button>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <!-- Notification List -->
+  <div class="notification-list">
+    <!-- Empty State -->
+    <div *ngIf="recentNotifications.length === 0" class="no-notifications">
+      <div class="empty-icon-wrapper">
+        <mat-icon>notifications_off</mat-icon>
+      </div>
+      <p class="empty-text">No notifications yet</p>
+    </div>
+
+    <!-- Notification Items -->
+    <div *ngFor="let notification of recentNotifications"
+         class="notification-item"
+         [class.unread]="!notification.is_read"
+         (click)="markAsRead(notification, $event)">
+
+      <!-- Notification Icon -->
+      <div class="notification-icon">
+        <div class="icon-wrapper" [ngClass]="{'read': notification.is_read, 'unread': !notification.is_read}">
+          <mat-icon>notifications</mat-icon>
+        </div>
+      </div>
+
+      <!-- Notification Content -->
+      <div class="notification-content">
+        <div class="notification-message" [ngClass]="{'font-medium': !notification.is_read}">
+          {{ notification.message }}
+        </div>
+        <div class="notification-time">
+          {{ getTimeAgo(notification.created_at) }}
+        </div>
+      </div>
+
+      <!-- Unread Indicator -->
+      <div *ngIf="!notification.is_read" class="unread-indicator"></div>
+    </div>
+  </div>
+
+  <mat-divider class="divider"></mat-divider>
+
+  <!-- Notification Footer -->
+  <div class="notification-footer">
+    <a routerLink="/notifications" class="view-all-link">
+      <span>View all notifications</span>
+      <mat-icon>arrow_forward</mat-icon>
+    </a>
+  </div>
+</mat-menu>

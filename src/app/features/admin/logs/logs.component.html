@@ -1,0 +1,240 @@
+<div class="min-h-screen bg-primary-dark text-white relative overflow-hidden">
+  <!-- Background elements -->
+  <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/70 to-primary-dark z-0"></div>
+  <div class="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
+  <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/20 rounded-full blur-[100px] animate-float-slow"></div>
+  <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute w-4 h-4 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 15%; left: 10%; animation-duration: 8s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 30%; left: 20%; animation-duration: 9s; animation-delay: 1s;"></div>
+    <div class="absolute w-5 h-5 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 70%; left: 80%; animation-duration: 10s; animation-delay: 0.5s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 60%; left: 40%; animation-duration: 7s; animation-delay: 2s;"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 py-10 relative z-10">
+    <div class="max-w-6xl mx-auto animate-slideInFromBottom">
+      <!-- Page Header -->
+      <div class="mb-8">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300 animate-pulse-glow">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+            </svg>
+            System Activity
+          </span>
+        </div>
+        <app-feature-header title="System Logs" icon="logs"></app-feature-header>
+        <p class="text-gray-300 mt-2 max-w-3xl">Track all system activities, monitor user actions, and maintain a detailed audit trail for security.</p>
+      </div>
+
+      <!-- Filter Controls -->
+      <div class="filter-box p-6 mb-8 animate-fadeIn" style="animation-delay: 0.2s;">
+        <h3 class="text-lg font-bold mb-4 flex items-center text-white">
+          <div class="relative mr-2 bg-primary-green/10 p-1.5 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
+            </svg>
+            <div class="absolute inset-0 bg-primary-green/20 rounded-full blur-sm -z-10"></div>
+          </div>
+          Filter Logs
+        </h3>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
+          <div>
+            <label class="block text-sm text-gray-300 mb-1.5">Start Date</label>
+            <input 
+              type="date" 
+              [(ngModel)]="filter.startDate"
+              class="filter-input w-full p-2.5 rounded-lg focus:ring-2 focus:ring-primary-green/20">
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1.5">End Date</label>
+            <input 
+              type="date" 
+              [(ngModel)]="filter.endDate"
+              class="filter-input w-full p-2.5 rounded-lg focus:ring-2 focus:ring-primary-green/20">
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1.5">Action Type</label>
+            <div class="relative">
+              <select 
+                [(ngModel)]="filter.action"
+                class="filter-input w-full p-2.5 rounded-lg appearance-none focus:ring-2 focus:ring-primary-green/20">
+                <option value="">All Actions</option>
+                <option *ngFor="let action of actionTypes" [value]="action">{{ action }}</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div>
+            <label class="block text-sm text-gray-300 mb-1.5">Entity Type</label>
+            <div class="relative">
+              <select 
+                [(ngModel)]="filter.entityType"
+                class="filter-input w-full p-2.5 rounded-lg appearance-none focus:ring-2 focus:ring-primary-green/20">
+                <option value="">All Entities</option>
+                <option *ngFor="let entity of entityTypes" [value]="entity">{{ entity }}</option>
+              </select>
+              <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-wrap gap-3">
+          <button 
+            (click)="applyFilters()"
+            class="btn-primary flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            Apply Filters
+          </button>
+          <button 
+            (click)="resetFilters()"
+            class="btn-secondary flex items-center gap-1.5">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+        <div class="relative">
+          <div class="w-16 h-16 border-t-4 border-b-4 border-primary-green rounded-full animate-spin"></div>
+          <div class="w-16 h-16 border-l-4 border-r-4 border-transparent border-opacity-50 rounded-full absolute top-0 left-0 animate-pulse-glow"></div>
+        </div>
+      </div>
+
+      <!-- Logs Data Table -->
+      <div *ngIf="!isLoading">
+        <div *ngIf="logs.length; else noLogs" class="glass-effect rounded-xl overflow-hidden shadow-xl animate-fadeIn" style="animation-delay: 0.3s;">
+          <div class="h-[60vh] overflow-y-auto custom-scrollbar">
+            <table class="logs-table">
+              <thead>
+                <tr>
+                  <th class="text-left">Time</th>
+                  <th class="text-left">User</th>
+                  <th class="text-center">Action</th>
+                  <th class="text-left">Entity</th>
+                  <th class="text-left">Details</th>
+                  <th class="text-right">IP Address</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let log of logs; let i = index" class="animate-fadeIn" [style.animation-delay]="(i * 30) + 'ms'">
+                  <td class="text-left text-gray-300 whitespace-nowrap">{{ formatDate(log.created_at) }}</td>
+                  <td class="text-left">
+                    <div class="flex items-center space-x-2">
+                      <div class="h-8 w-8 rounded-full bg-primary-green/10 flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                      </div>
+                      <span class="text-white font-medium truncate max-w-[120px]">
+                        {{ log.user_name || 'System' }}
+                      </span>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <span [ngClass]="getActionClass(log.action)" class="action-badge">
+                      {{ log.action }}
+                    </span>
+                  </td>
+                  <td class="text-left">
+                    <div class="flex items-center">
+                      <span [ngClass]="getEntityClass(log.entity_type)" class="font-medium">{{ log.entity_type }}</span>
+                      <span class="text-gray-400 mx-1">#</span>
+                      <span class="text-gray-300">{{ log.entity_id }}</span>
+                    </div>
+                  </td>
+                  <td class="text-left">
+                    <div>
+                      <div class="max-w-xs truncate text-gray-300">{{ log.details }}</div>
+                      <button 
+                        *ngIf="log.details" 
+                        (click)="log.showDetails = !log.showDetails" 
+                        class="text-xs text-primary-green hover:text-primary-green/80 flex items-center gap-1 mt-1">
+                        <svg *ngIf="!log.showDetails" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                        </svg>
+                        <svg *ngIf="log.showDetails" xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+                        </svg>
+                        {{ log.showDetails ? 'Hide' : 'Show' }} Details
+                      </button>
+                      <div *ngIf="log.showDetails" class="details-box custom-scrollbar">
+                        {{ parseDetails(log.details) }}
+                      </div>
+                    </div>
+                  </td>
+                  <td class="text-right text-gray-400">{{ log.ip_address }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <!-- Pagination Controls -->
+          <div class="px-6 py-4 bg-black/30 border-t border-primary-green/10 flex justify-between items-center">
+            <div class="text-sm text-gray-400">
+              Showing {{ (currentPage - 1) * pageSize + 1 }} to {{ Math.min(currentPage * pageSize, totalLogs) }} of {{ totalLogs }} logs
+            </div>
+            <div class="pagination-controls flex space-x-2">
+              <button 
+                [disabled]="currentPage === 1" 
+                (click)="prevPage()"
+                class="flex items-center gap-1">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                </svg>
+                Previous
+              </button>
+              <button 
+                [disabled]="currentPage * pageSize >= totalLogs" 
+                (click)="nextPage()"
+                class="flex items-center gap-1">
+                Next
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Empty State -->
+        <ng-template #noLogs>
+          <div class="glass-effect p-8 text-center rounded-xl border border-primary-green/10 animate-fadeIn" style="animation-delay: 0.3s;">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-green/10 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">No Logs Found</h3>
+            <p class="text-gray-400 mb-4">No system logs match the current filters.</p>
+            <button 
+              (click)="resetFilters()"
+              class="btn-primary flex items-center gap-1.5 mx-auto">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+              </svg>
+              Reset Filters
+            </button>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</div>

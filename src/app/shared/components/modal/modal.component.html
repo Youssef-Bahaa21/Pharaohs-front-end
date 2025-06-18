@@ -1,0 +1,313 @@
+<!-- Upload/Update Modal - Modern Design -->
+<div *ngIf="show" class="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-md animate-fadeIn">
+  <div class="relative bg-gradient-to-b from-primary-dark via-primary-dark/95 to-black/95 rounded-xl shadow-2xl border border-primary-green/40 w-full max-w-2xl p-8 max-h-[90vh] overflow-y-auto animate-slideUp">
+    <!-- Background elements -->
+    <div class="absolute inset-0 overflow-hidden rounded-xl opacity-20 pointer-events-none">
+      <div class="absolute -right-20 -top-20 w-40 h-40 bg-primary-green/30 rounded-full blur-xl"></div>
+      <div class="absolute -left-20 -bottom-20 w-40 h-40 bg-primary-green/20 rounded-full blur-xl"></div>
+      <!-- Pattern overlay -->
+      <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    </div>
+
+    <!-- Modal Header -->
+    <div class="relative flex justify-between items-center mb-8 border-b border-primary-green/30 pb-4">
+      <h2 class="text-2xl font-bold text-primary-green flex items-center">
+        <div class="relative mr-4 bg-primary-green/10 p-2 rounded-full">
+          <svg *ngIf="modalType === 'upload'" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+          <svg *ngIf="modalType === 'update'" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          <svg *ngIf="modalType === 'tryout'" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          </svg>
+          <div class="absolute inset-0 bg-primary-green/20 rounded-full blur-sm -z-10"></div>
+        </div>
+        <span class="relative">
+          {{ title }}
+          <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary-green to-transparent"></span>
+        </span>
+      </h2>
+      <button (click)="closeModal()" class="relative group p-2 rounded-full hover:bg-black/30 transition-all duration-300 hover:rotate-90">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-gray-400 group-hover:text-white transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Upload/Update Form -->
+    <form (submit)="submitModal($event)" class="relative space-y-8" *ngIf="modalType === 'upload' || modalType === 'update'" #uploadForm="ngForm" novalidate>
+      <!-- Media Type Selection (only for upload) -->
+      <div class="mb-6" *ngIf="modalType === 'upload'">
+        <label class="block text-white font-medium mb-3 text-lg flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+          </svg>
+          Choose Media Type
+        </label>
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <label class="group cursor-pointer">
+            <input type="radio" [(ngModel)]="fileType" name="fileType" (ngModelChange)="onFileTypeChange('video')" value="video" class="hidden" />
+            <div [ngClass]="{
+                'bg-gradient-to-br from-primary-green/90 to-primary-green/70 border-primary-green shadow-lg': fileType === 'video',
+                'bg-black/40 border-primary-green/30 hover:border-primary-green/50': fileType !== 'video'
+              }"
+              class="relative h-full px-6 py-4 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 overflow-hidden">
+              <!-- Background glow effect for selected option -->
+              <div *ngIf="fileType === 'video'" class="absolute inset-0 bg-primary-green/10 blur-md"></div>
+
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-black/30 flex items-center justify-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    [ngClass]="{'text-white': fileType === 'video', 'text-primary-green': fileType !== 'video'}"
+                    class="h-8 w-8 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span
+                  [ngClass]="{'text-white font-semibold': fileType === 'video', 'text-gray-300': fileType !== 'video'}"
+                  class="text-lg transition-colors duration-300">Video</span>
+                <span
+                  [ngClass]="{'text-white/80': fileType === 'video', 'text-gray-500': fileType !== 'video'}"
+                  class="text-sm mt-1 transition-colors duration-300">Upload game highlights</span>
+              </div>
+            </div>
+          </label>
+
+          <label class="group cursor-pointer">
+            <input type="radio" [(ngModel)]="fileType" name="fileType" (ngModelChange)="onFileTypeChange('image')" value="image" class="hidden" />
+            <div [ngClass]="{
+                'bg-gradient-to-br from-primary-green/90 to-primary-green/70 border-primary-green shadow-lg': fileType === 'image',
+                'bg-black/40 border-primary-green/30 hover:border-primary-green/50': fileType !== 'image'
+              }"
+              class="relative h-full px-6 py-4 rounded-xl border-2 flex flex-col items-center justify-center transition-all duration-300 overflow-hidden">
+              <!-- Background glow effect for selected option -->
+              <div *ngIf="fileType === 'image'" class="absolute inset-0 bg-primary-green/10 blur-md"></div>
+
+              <div class="relative z-10 flex flex-col items-center">
+                <div class="w-14 h-14 rounded-full bg-black/30 flex items-center justify-center mb-3">
+                  <svg xmlns="http://www.w3.org/2000/svg"
+                    [ngClass]="{'text-white': fileType === 'image', 'text-primary-green': fileType !== 'image'}"
+                    class="h-8 w-8 transition-all duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                </div>
+                <span
+                  [ngClass]="{'text-white font-semibold': fileType === 'image', 'text-gray-300': fileType !== 'image'}"
+                  class="text-lg transition-colors duration-300">Image</span>
+                <span
+                  [ngClass]="{'text-white/80': fileType === 'image', 'text-gray-500': fileType !== 'image'}"
+                  class="text-sm mt-1 transition-colors duration-300">Share your best moments</span>
+              </div>
+            </div>
+          </label>
+        </div>
+      </div>
+
+      <!-- Update Mode Notice -->
+      <div class="mb-6" *ngIf="modalType === 'update'">
+        <label class="block text-white font-medium mb-3 text-lg flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z" />
+          </svg>
+          Content Type: <span class="text-primary-green ml-1">{{ fileType === 'video' ? 'Video' : 'Image' }}</span>
+        </label>
+
+        <div class="bg-black/40 p-4 rounded-lg border border-primary-green/20 text-white mb-4">
+          <p class="text-sm">
+            <span class="text-primary-green font-semibold">Note:</span> If you want to update the media file, the old file will be replaced with the new one. All likes and comments will be reset.
+            <br>
+            If you only want to update the description, leave the file selection empty.
+          </p>
+        </div>
+      </div>
+
+      <!-- File Upload -->
+      <div>
+        <label class="block text-white font-medium mb-3 text-lg flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          {{ modalType === 'update' ? 'Update File (Optional)' : 'Upload File' }}
+        </label>
+        <div class="border-2 border-dashed border-primary-green/40 rounded-xl p-8 text-center hover:border-primary-green/70 transition-all duration-300 cursor-pointer bg-black/40 group hover:shadow-lg"
+          (click)="fileInput.click()"
+          [ngClass]="{'border-primary-green shadow-lg': selectedFile}">
+          <input #fileInput type="file" class="hidden" [accept]="fileType === 'video' ? 'video/*' : 'image/*'" (change)="onFileSelected($event)" />
+
+          <div *ngIf="!selectedFile" class="space-y-4">
+            <div class="w-20 h-20 mx-auto rounded-full bg-black/30 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-green/70 group-hover:text-primary-green transition-colors duration-300" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-white text-lg">Drag and drop your {{ fileType }} here, or click to browse</p>
+              <p class="text-gray-400 text-sm mt-2">Maximum file size: 100MB</p>
+            </div>
+          </div>
+
+          <div *ngIf="selectedFile" class="space-y-4">
+            <div class="w-20 h-20 mx-auto rounded-full bg-primary-green/20 flex items-center justify-center animate-pulse">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+            <div>
+              <p class="text-white text-lg font-medium">{{ selectedFile.name }}</p>
+              <p class="text-gray-400 text-sm mt-2">{{ (selectedFile.size / 1024 / 1024).toFixed(2) }} MB</p>
+              <button type="button" (click)="removeSelectedFile($event)"
+                class="mt-4 px-4 py-2 bg-red-500/10 hover:bg-red-500/20 text-red-400 hover:text-red-300 rounded-lg transition-all duration-300">
+                <span class="flex items-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                  Remove file
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div>
+        <label for="description" class="block text-white font-medium mb-3 text-lg flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2H9m0 0l-4 4m4-4h6" />
+          </svg>
+          Description
+        </label>
+        <div class="relative group">
+          <textarea id="description" [(ngModel)]="description" (ngModelChange)="onDescriptionChange($event)" name="description" rows="3"
+            class="w-full bg-black/40 border-2 border-primary-green/30 rounded-xl p-4 text-white focus:ring-2 focus:ring-primary-green/50 focus:border-primary-green/50 transition-all duration-300 group-focus-within:shadow-[0_0_10px_rgba(0,200,83,0.1)]"
+            placeholder="Describe your highlight..."></textarea>
+          <div class="absolute bottom-3 right-3 text-gray-500 text-sm">
+            {{ description.length }} / 500
+          </div>
+        </div>
+      </div>
+
+      <!-- Upload Progress -->
+      <div *ngIf="progress > 0 && progress < 100" class="space-y-3">
+        <div class="flex justify-between text-sm text-white">
+          <span class="flex items-center">
+            <svg class="animate-spin h-4 w-4 mr-2 text-primary-green" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            {{ modalType === 'upload' ? 'Uploading' : 'Updating' }} your highlight...
+          </span>
+          <span class="font-medium text-primary-green">{{ progress }}%</span>
+        </div>
+        <div class="w-full bg-black/50 rounded-full h-3 overflow-hidden shadow-inner">
+          <div class="bg-gradient-to-r from-primary-green to-primary-green/80 h-3 rounded-full transition-all duration-300 relative" [style.width.%]="progress">
+            <div class="absolute inset-0 bg-white/20 animate-pulse"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error -->
+      <div *ngIf="error" class="bg-red-500/20 border-2 border-red-500/50 text-white p-5 rounded-xl">
+        <p class="flex items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mr-3 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          {{ error }}
+        </p>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="flex flex-col sm:flex-row justify-end gap-4 pt-4">
+        <button type="button" (click)="closeModal()"
+          class="order-2 sm:order-1 px-6 py-3 rounded-xl border-2 border-primary-green/30 text-white hover:bg-black/50 hover:border-primary-green/50 transition-all duration-300 flex items-center justify-center hover:shadow-md">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+          Cancel
+        </button>
+        <button type="submit" [disabled]="(modalType === 'upload' && !selectedFile) || (modalType === 'update' && !selectedFile && !description.trim()) || isProcessing || isSubmitting"
+          class="order-1 sm:order-2 px-6 py-3 rounded-xl bg-gradient-to-r from-primary-green to-primary-green/80 text-white font-medium hover:from-primary-green/90 hover:to-primary-green/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center shadow-lg hover:shadow-xl transform hover:translate-y-[-2px] active:translate-y-0">
+          <svg *ngIf="isProcessing || isSubmitting" class="animate-spin -ml-1 mr-2 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <svg *ngIf="!isProcessing && !isSubmitting" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path *ngIf="modalType === 'upload'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+            <path *ngIf="modalType === 'update'" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          {{ isProcessing ? (modalType === 'upload' ? 'Uploading...' : 'Updating...') : (modalType === 'upload' ? 'Upload' : 'Update') }}
+        </button>
+      </div>
+    </form>
+
+    <!-- Tryout Selector Modal (for scouts) -->
+    <div class="relative" *ngIf="modalType === 'tryout'">
+      <div *ngIf="isLoadingTryouts" class="flex flex-col items-center justify-center py-6">
+        <div class="relative w-16 h-16 mb-3">
+          <div class="absolute inset-0 rounded-full border-t-2 border-b-2 border-primary-green animate-spin"></div>
+          <div class="absolute inset-0 rounded-full border-r-2 border-l-2 border-primary-green/50 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+        </div>
+        <p class="text-primary-green text-sm animate-pulse">Loading tryouts...</p>
+      </div>
+
+      <div *ngIf="!isLoadingTryouts">
+        <div *ngIf="tryouts.length > 0" class="mb-6">
+          <label class="block text-white font-medium mb-3 text-lg flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Choose Tryout
+          </label>
+          <select [(ngModel)]="selectedTryoutId" (ngModelChange)="onSelectedTryoutIdChange($event)"
+                  class="input-primary w-full pl-4 pr-10 py-3 rounded-lg focus:ring-2 focus:ring-primary-green/50 bg-black/40 border border-primary-green/20 focus:border-primary-green/50 transition-all duration-300 appearance-none shadow-inner">
+            <option [ngValue]="null" disabled selected>Select a tryout...</option>
+            <option *ngFor="let tryout of tryouts"
+                    [ngValue]="tryout.id"
+                    [disabled]="currentInvitingPlayerId !== null && isInvitedToTryout(currentInvitingPlayerId, tryout.id)"
+                    [attr.title]="currentInvitingPlayerId !== null && isInvitedToTryout(currentInvitingPlayerId, tryout.id) ? 'Player already invited to this tryout' : ''">
+              {{ tryout.name }} - {{ tryout.location }} ({{ tryout.date | date:'mediumDate' }})
+              {{ currentInvitingPlayerId !== null && isInvitedToTryout(currentInvitingPlayerId, tryout.id) ? '- Already Invited' : '' }}
+            </option>
+          </select>
+          <div *ngIf="currentInvitingPlayerId !== null && invitedPlayers.has(currentInvitingPlayerId)" class="mt-2 text-xs text-blue-400 bg-blue-500/10 p-2 rounded-lg border border-blue-500/20">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Player is already invited to some tryouts. You can still invite to additional tryouts.
+          </div>
+        </div>
+
+        <div *ngIf="tryouts.length === 0" class="text-center p-4 bg-black/30 rounded-lg border border-primary-green/10 mb-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 mx-auto text-secondary mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <p class="text-white font-medium mb-1">No Tryouts Available</p>
+          <p class="text-secondary text-sm">Please create a tryout first by visiting the Tryouts page.</p>
+          <button (click)="goToTryouts()"
+                  class="mt-4 bg-gradient-to-r from-primary-green/70 to-primary-green/50 text-white px-4 py-2 rounded-lg shadow-md hover:from-primary-green/80 hover:to-primary-green/60 transition-all duration-300">
+            Go to Tryouts
+          </button>
+        </div>
+
+        <div class="flex justify-end gap-3 mt-4">
+          <button (click)="closeModal()"
+                  class="bg-black/50 hover:bg-black/70 text-white px-5 py-2.5 rounded-lg transition-all duration-300 border border-primary-green/20 hover:border-primary-green/40">
+            Cancel
+          </button>
+          <button (click)="confirmInvite()"
+                  [disabled]="!selectedTryoutId"
+                  class="bg-gradient-to-r from-blue-500/90 to-blue-500/70 text-white px-5 py-2.5 rounded-lg transition-all duration-300 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 hover:translate-y-[-2px] disabled:transform-none">
+            <span class="flex items-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              Send Invitation
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

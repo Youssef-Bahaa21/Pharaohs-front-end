@@ -1,0 +1,92 @@
+<div class="container mx-auto px-4 py-6 max-w-4xl">
+  <app-feature-header title="Notifications" icon="notifications"></app-feature-header>
+
+  <!--  Actions Bar -->
+  <div class="flex justify-between items-center mb-6 mt-4">
+    <div class="text-secondary text-sm">
+      <span *ngIf="totalNotifications > 0">
+        Showing {{ pageIndex * pageSize + 1 }}-{{ Math.min((pageIndex + 1) * pageSize, totalNotifications) }} of {{ totalNotifications }} notifications
+      </span>
+    </div>
+    <button
+      (click)="markAllAsRead()"
+      [disabled]="loading || notifications.length === 0"
+      class="bg-gradient-to-r from-primary-green/80 to-primary-green/60 text-white px-4 py-2 rounded-lg transition-all duration-300 flex items-center disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 hover:shadow-md">
+      <mat-icon class="mr-2 text-sm">done_all</mat-icon>
+      Mark All as Read
+    </button>
+  </div>
+
+  <!-- Notifications Content -->
+  <div class="bg-gradient-to-b from-primary-dark/90 to-black/90 rounded-xl shadow-lg border border-primary-green/30 overflow-hidden min-h-[400px]">
+    <!-- Loading State -->
+    <div *ngIf="loading" class="flex flex-col items-center justify-center h-[400px]">
+      <div class="relative w-16 h-16 mb-3">
+        <div class="absolute inset-0 rounded-full border-t-2 border-b-2 border-primary-green animate-spin"></div>
+        <div class="absolute inset-0 rounded-full border-r-2 border-l-2 border-primary-green/50 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+      </div>
+      <p class="text-primary-green text-sm animate-pulse">Loading notifications...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div *ngIf="!loading && notifications.length === 0" class="flex flex-col items-center justify-center h-[400px] text-center px-4">
+      <div class="w-20 h-20 rounded-full bg-black/40 flex items-center justify-center mb-4 border border-primary-green/20">
+        <mat-icon class="text-secondary" style="font-size: 36px; width: 36px; height: 36px;">notifications_off</mat-icon>
+      </div>
+      <h3 class="text-xl font-semibold text-white mb-2">No Notifications</h3>
+      <p class="text-secondary max-w-md">You don't have any notifications yet. When you receive notifications, they will appear here.</p>
+    </div>
+
+    <!-- Notification List -->
+    <div *ngIf="!loading && notifications.length > 0" class="notification-list">
+      <div *ngFor="let notification of notifications; let i = index"
+           class="notification-item group"
+           [class.unread]="!notification.is_read"
+           (click)="markAsRead(notification)">
+
+        <!-- Notification Icon -->
+        <div class="notification-icon">
+          <div class="icon-wrapper" [ngClass]="{'bg-primary-green/20': notification.is_read, 'bg-primary-green/40': !notification.is_read}">
+            <mat-icon>notifications</mat-icon>
+          </div>
+        </div>
+
+        <!-- Notification Content -->
+        <div class="notification-content">
+          <div class="notification-message" [ngClass]="{'font-medium': !notification.is_read}">
+            {{ notification.message }}
+          </div>
+          <div class="notification-time">
+            {{ getTimeAgo(notification.created_at) }}
+          </div>
+        </div>
+
+        <!-- Notification Actions -->
+        <div class="notification-actions opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <button class="delete-button"
+                  matTooltip="Delete"
+                  (click)="deleteNotification(notification, $event)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+
+        <!-- Unread Indicator -->
+        <div *ngIf="!notification.is_read" class="unread-indicator"></div>
+      </div>
+    </div>
+
+    <!-- Pagination -->
+    <div *ngIf="totalNotifications > 0" class="pagination-container">
+      <mat-paginator
+        [length]="totalNotifications"
+        [pageSize]="pageSize"
+        [pageSizeOptions]="pageSizeOptions"
+        [pageIndex]="pageIndex"
+        (page)="handlePageEvent($event)"
+        aria-label="Select page"
+        class="custom-paginator">
+      </mat-paginator>
+    </div>
+  </div>
+</div>
+

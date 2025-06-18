@@ -1,0 +1,828 @@
+<div class="min-h-screen bg-primary-dark text-white">
+  <!-- Hero Section -->
+  <section class="relative h-screen flex items-center overflow-hidden">
+    <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/70 to-primary-dark z-0"></div>
+    <div class="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
+
+    <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/20 rounded-full blur-[100px] animate-float-slow"></div>
+    <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+    <div class="absolute inset-0 z-0 overflow-hidden">
+      <div class="absolute w-4 h-4 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 15%; left: 10%; animation-duration: 8s;"></div>
+      <div class="absolute w-3 h-3 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 30%; left: 20%; animation-duration: 9s; animation-delay: 1s;"></div>
+      <div class="absolute w-5 h-5 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 70%; left: 80%; animation-duration: 10s; animation-delay: 0.5s;"></div>
+      <div class="absolute w-2 h-2 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 60%; left: 40%; animation-duration: 7s; animation-delay: 2s;"></div>
+      <div class="absolute w-6 h-6 rounded-full bg-primary-green/10 blur-sm animate-float-slow" style="top: 20%; left: 85%; animation-duration: 12s; animation-delay: 1.5s;"></div>
+    </div>
+
+    <div class="absolute inset-0 transform transition-all duration-1000 scale-[1.02] hero-parallax">
+      <img src="/background.png" alt="Football field" class="w-full h-full object-cover"
+           onerror="this.src='https://images.unsplash.com/photo-1508098682722-e99c643e7f0b?q=80&w=2070&auto=format&fit=crop'">
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="max-w-3xl animate-slideInFromBottom">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300 animate-pulse-glow">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Revolutionizing Football Scouting in Egypt
+          </span>
+        </div>
+
+        <h1 class="text-5xl md:text-6xl font-bold mb-6 leading-tight animate-on-scroll fade-up animate-visible">
+          <span class="text-primary-green animate-highlightText relative inline-block">
+            Discover
+            <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-green to-transparent"></span>
+          </span>
+          Football Talent
+        </h1>
+
+        <p class="text-xl md:text-2xl mb-8 text-secondary leading-relaxed animate-on-scroll fade-up animate-visible" style="animation-delay: 0.2s;">
+          Connecting talented players with professional scouts through an innovative digital platform. Take your football career to the next level.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll fade-up animate-visible" style="animation-delay: 0.4s;">
+          <a routerLink="/register" class="btn-primary text-center py-3.5 px-8 text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary-green/20 group relative overflow-hidden">
+            <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover:w-full transform skew-x-12"></span>
+            <span class="relative flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+              </svg>
+              Get Started
+            </span>
+          </a>
+          <a routerLink="/about" class="btn-secondary text-center py-3.5 px-8 text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-primary-green/50 group relative overflow-hidden">
+            <span class="absolute inset-0 w-0 bg-primary-green/5 transition-all duration-500 group-hover:w-full transform skew-x-12"></span>
+            <span class="relative flex items-center justify-center">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              Learn More
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce-slow opacity-80 hover:opacity-100 transition-opacity duration-300">
+      <div class="p-2 bg-black/20 rounded-full backdrop-blur-sm border border-primary-green/30 shadow-lg shadow-primary-green/10 animate-pulse-glow">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+      </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="py-24 bg-gradient-to-b from-primary-dark via-[#1e1e1e] to-[#252525] relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <div class="absolute -left-32 top-1/2 w-64 h-64 bg-primary-green/10 rounded-full blur-[80px]"></div>
+    <div class="absolute -right-32 bottom-1/4 w-64 h-64 bg-primary-green/10 rounded-full blur-[80px]"></div>
+
+    <div class="absolute w-full h-full overflow-hidden">
+      <div class="absolute w-6 h-6 opacity-20 animate-float-slow" style="top: 15%; left: 5%; animation-duration: 10s;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-primary-green">
+          <circle cx="12" cy="12" r="10" stroke-width="1"/>
+          <path d="M12 2 L12 22 M2 12 L22 12 M4 4 L20 20 M4 20 L20 4" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="absolute w-4 h-4 opacity-15 animate-float-slow" style="top: 75%; left: 25%; animation-duration: 8s; animation-delay: 1s;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-primary-green">
+          <circle cx="12" cy="12" r="10" stroke-width="1"/>
+          <path d="M12 2 L12 22 M2 12 L22 12 M4 4 L20 20 M4 20 L20 4" stroke-width="1"/>
+        </svg>
+      </div>
+      <div class="absolute w-8 h-8 opacity-10 animate-float-slow" style="top: 30%; left: 85%; animation-duration: 12s; animation-delay: 2s;">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" class="text-primary-green">
+          <circle cx="12" cy="12" r="10" stroke-width="1"/>
+          <path d="M12 2 L12 22 M2 12 L22 12 M4 4 L20 20 M4 20 L20 4" stroke-width="1"/>
+        </svg>
+      </div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="text-center mb-20 animate-on-scroll fade-up">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+            Platform Features
+          </span>
+        </div>
+        <h2 class="text-4xl font-bold mb-5 relative inline-block">
+          Why Choose <span class="text-primary-green relative">
+            Pharaohs
+            <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-green to-transparent"></span>
+          </span>
+        </h2>
+        <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+          Our platform offers unique features designed to help players showcase their talent and scouts discover the next generation of football stars.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="feature-card tilt-card bg-gradient-to-br from-[#2A2A2A] to-[#222222] rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="absolute top-0 right-0 w-16 h-16 bg-primary-green/10 transform translate-x-8 -translate-y-8 rotate-45 group-hover:bg-primary-green/20 transition-all duration-500"></div>
+          <div class="absolute -bottom-1 left-0 w-0 h-1 bg-primary-green group-hover:w-full transition-all duration-700"></div>
+
+          <div class="relative z-10">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-green/30 to-primary-green/5 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg shadow-primary-green/5 group-hover:shadow-primary-green/20 transition-all duration-500 transform group-hover:rotate-6 animate-pulse-glow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+          </div>
+            <h3 class="text-2xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Video Showcase</h3>
+          <p class="text-secondary text-center">
+              Upload and share your best football moments with HD video support and multi-angle capabilities to catch the eye of professional scouts.
+            </p>
+
+            <div class="mt-4 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+              <ul class="text-sm text-secondary/90 space-y-2">
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Support for HD video uploads</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Automatic highlight creation</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Performance analytics integration</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card tilt-card bg-gradient-to-br from-[#2A2A2A] to-[#222222] rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up" style="animation-delay: 0.1s;">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="absolute top-0 right-0 w-16 h-16 bg-primary-green/10 transform translate-x-8 -translate-y-8 rotate-45 group-hover:bg-primary-green/20 transition-all duration-500"></div>
+          <div class="absolute -bottom-1 left-0 w-0 h-1 bg-primary-green group-hover:w-full transition-all duration-700"></div>
+
+          <div class="relative z-10">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-green/30 to-primary-green/5 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg shadow-primary-green/5 group-hover:shadow-primary-green/20 transition-all duration-500 transform group-hover:rotate-6 animate-pulse-glow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+          </div>
+            <h3 class="text-2xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Advanced Scout Search</h3>
+          <p class="text-secondary text-center">
+              Powerful search tools for scouts to find players based on position, skills, and location with precision.
+            </p>
+
+            <div class="mt-4 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+              <ul class="text-sm text-secondary/90 space-y-2">
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Smart talent matching</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>20+ search filter parameters</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Save custom search profiles</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="feature-card tilt-card bg-gradient-to-br from-[#2A2A2A] to-[#222222] rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up" style="animation-delay: 0.2s;">
+          <div class="absolute inset-0 bg-gradient-to-br from-primary-green/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+          <div class="absolute top-0 right-0 w-16 h-16 bg-primary-green/10 transform translate-x-8 -translate-y-8 rotate-45 group-hover:bg-primary-green/20 transition-all duration-500"></div>
+          <div class="absolute -bottom-1 left-0 w-0 h-1 bg-primary-green group-hover:w-full transition-all duration-700"></div>
+
+          <div class="relative z-10">
+            <div class="w-16 h-16 bg-gradient-to-br from-primary-green/30 to-primary-green/5 rounded-2xl flex items-center justify-center mb-6 mx-auto shadow-lg shadow-primary-green/5 group-hover:shadow-primary-green/20 transition-all duration-500 transform group-hover:rotate-6 animate-pulse-glow">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+          </div>
+            <h3 class="text-2xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Tryout Management</h3>
+          <p class="text-secondary text-center">
+              Comprehensive system for receiving, managing, and tracking invitations to tryouts from interested scouts and clubs.
+            </p>
+
+            <div class="mt-4 max-h-0 opacity-0 group-hover:max-h-40 group-hover:opacity-100 transition-all duration-500 overflow-hidden">
+              <ul class="text-sm text-secondary/90 space-y-2">
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Digital tryout scheduling</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Integrated calendar reminders</span>
+                </li>
+                <li class="flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span>Post-tryout feedback system</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Additional Features - Enhanced with modern design -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-16">
+        <!-- For Players section -->
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-8 border border-primary-green/20 hover:shadow-lg hover:shadow-primary-green/5 transition-all duration-300 group animate-on-scroll fade-left">
+          <h3 class="text-2xl font-bold mb-6 flex items-center">
+            <div class="p-2 bg-primary-green/10 rounded-lg mr-3 group-hover:bg-primary-green/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            For <span class="text-primary-green relative ml-2 group-hover:text-white transition-colors duration-300">
+              Players
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-green to-transparent"></span>
+            </span>
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Create comprehensive profiles with photos, videos, and detailed career history</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Upload performance videos with our advanced editing tools to showcase specific skills</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Receive real-time notifications for tryouts, feedback, and interest from professional scouts</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Participate in exclusive tournaments and showcase events organized through the platform</span>
+            </li>
+          </ul>
+        </div>
+
+        <!-- For Scouts section -->
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-8 border border-primary-green/20 hover:shadow-lg hover:shadow-primary-green/5 transition-all duration-300 group animate-on-scroll fade-right">
+          <h3 class="text-2xl font-bold mb-6 flex items-center">
+            <div class="p-2 bg-primary-green/10 rounded-lg mr-3 group-hover:bg-primary-green/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H7a1 1 0 01-1-1v-3a1 1 0 00-1-1H4a2 2 0 110-4h1a1 1 0 001-1V7a1 1 0 011-1h3a1 1 0 001-1V4z" />
+              </svg>
+            </div>
+            For <span class="text-primary-green relative ml-2 group-hover:text-white transition-colors duration-300">
+              Scouts
+              <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-primary-green to-transparent"></span>
+            </span>
+          </h3>
+          <ul class="space-y-4">
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Access advanced search tools with filters for age, position, skill level, and geographical region</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">View comprehensive player profiles with performance metrics, video analysis, and career progression data</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Send personalized tryout invitations and manage responses through our integrated scheduling system</span>
+            </li>
+            <li class="flex items-start transform transition-all duration-300 hover:translate-x-2 group/item">
+              <div class="p-1 bg-primary-green/10 rounded-full mr-3 mt-0.5 group-hover/item:bg-primary-green/20 transition-all duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              </div>
+              <span class="text-secondary group-hover/item:text-white transition-colors duration-300">Generate detailed analytics reports on scouting activities and discover emerging talent patterns</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- New Feature Highlight -->
+      <div class="mt-16 bg-gradient-to-r from-primary-green/20 to-primary-green/5 rounded-xl p-8 border border-primary-green/30 shadow-lg animate-on-scroll fade-up">
+        <div class="flex flex-col md:flex-row items-center">
+          <div class="mb-6 md:mb-0 md:mr-8 flex-shrink-0">
+            <div class="w-20 h-20 bg-primary-green/30 rounded-full flex items-center justify-center animate-pulse-glow">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              </svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-2xl font-bold mb-2 text-white">New: Performance Analysis Tools</h3>
+            <p class="text-secondary mb-4">
+              Our latest feature provides detailed metrics and actionable insights to help players improve their performance and compare their skills.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              <span class="inline-block px-3 py-1 bg-primary-green/10 text-primary-green rounded-full text-sm border border-primary-green/20">Speed Analysis</span>
+              <span class="inline-block px-3 py-1 bg-primary-green/10 text-primary-green rounded-full text-sm border border-primary-green/20">Technical Skills</span>
+              <span class="inline-block px-3 py-1 bg-primary-green/10 text-primary-green rounded-full text-sm border border-primary-green/20">Decision Making</span>
+              <span class="inline-block px-3 py-1 bg-primary-green/10 text-primary-green rounded-full text-sm border border-primary-green/20">Comparison Tools</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="py-24 bg-gradient-to-b from-[#252525] to-primary-dark relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <div class="absolute right-0 top-1/4 w-80 h-80 bg-primary-green/5 rounded-full blur-[100px]"></div>
+    <div class="absolute left-0 bottom-1/4 w-80 h-80 bg-primary-green/10 rounded-full blur-[100px]"></div>
+
+    <div class="absolute w-full h-full overflow-hidden">
+      <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path class="path-line" d="M0,150 C300,50 600,250 900,150 C1200,50 1500,200 1800,100" fill="none" stroke="rgba(52, 211, 153, 0.2)" stroke-width="2" stroke-dasharray="10,10"></path>
+      </svg>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="text-center mb-20 animate-on-scroll fade-up">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+            </svg>
+            Simple Process
+          </span>
+        </div>
+        <h2 class="text-4xl font-bold mb-5 relative inline-block">
+          How It <span class="text-primary-green relative">
+            Works
+            <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-green to-transparent"></span>
+          </span>
+        </h2>
+        <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+          Our platform makes it easy for players to showcase their talent and for scouts to discover them through an intuitive four-step process.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 relative timeline-connector">
+        <!-- Connection line (enhanced) -->
+        <div class="absolute top-24 left-0 right-0 h-1 bg-gradient-to-r from-primary-green/20 via-primary-green/40 to-primary-green/20 hidden md:block">
+          <!-- Animated progress indicator -->
+          <div class="absolute top-0 left-0 h-full w-0 bg-primary-green transition-all duration-2000 timeline-progress"></div>
+        </div>
+
+        <!-- Step 1 - Enhanced with animations and effects -->
+        <div class="relative flex flex-col items-center group animate-on-scroll fade-up">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-green to-primary-green/80 rounded-2xl flex items-center justify-center mb-8 z-10 relative shadow-lg shadow-primary-green/20 transform group-hover:rotate-6 transition-all duration-500 group-hover:scale-110 animate-pulse-glow">
+            <span class="text-white text-2xl font-bold">1</span>
+          </div>
+          <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 w-full transform transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary-green/10 group-hover:border-primary-green/40 h-full">
+            <h3 class="text-xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Create Profile</h3>
+          <p class="text-secondary text-center">
+              Sign up and create your comprehensive player profile with detailed stats, positions, and career history.
+            </p>
+
+            <!-- Icon -->
+            <div class="mt-4 flex justify-center">
+              <div class="w-12 h-12 bg-primary-green/10 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Animated circle indicator -->
+          <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary-green/10 rounded-full hidden md:flex items-center justify-center animate-pulse">
+            <div class="w-3 h-3 bg-primary-green rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Step 2 - Enhanced with animations and effects -->
+        <div class="relative flex flex-col items-center group animate-on-scroll fade-up" style="animation-delay: 0.2s;">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-green to-primary-green/80 rounded-2xl flex items-center justify-center mb-8 z-10 relative shadow-lg shadow-primary-green/20 transform group-hover:rotate-6 transition-all duration-500 group-hover:scale-110 animate-pulse-glow" style="animation-delay: 0.5s;">
+            <span class="text-white text-2xl font-bold">2</span>
+          </div>
+          <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 w-full transform transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary-green/10 group-hover:border-primary-green/40 h-full">
+            <h3 class="text-xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Upload Videos</h3>
+          <p class="text-secondary text-center">
+              Share your best football moments through HD video uploads with our advanced editing tools.
+            </p>
+
+            <!-- Icon -->
+            <div class="mt-4 flex justify-center">
+              <div class="w-12 h-12 bg-primary-green/10 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Animated circle indicator -->
+          <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary-green/10 rounded-full hidden md:flex items-center justify-center animate-pulse" style="animation-delay: 0.5s;">
+            <div class="w-3 h-3 bg-primary-green rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Step 3 - Enhanced with animations and effects -->
+        <div class="relative flex flex-col items-center group animate-on-scroll fade-up" style="animation-delay: 0.4s;">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-green to-primary-green/80 rounded-2xl flex items-center justify-center mb-8 z-10 relative shadow-lg shadow-primary-green/20 transform group-hover:rotate-6 transition-all duration-500 group-hover:scale-110 animate-pulse-glow" style="animation-delay: 1s;">
+            <span class="text-white text-2xl font-bold">3</span>
+          </div>
+          <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 w-full transform transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary-green/10 group-hover:border-primary-green/40 h-full">
+            <h3 class="text-xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Get Discovered</h3>
+          <p class="text-secondary text-center">
+              Professional scouts browse verified profiles and videos to find talented players matching their needs.
+            </p>
+
+            <!-- Icon -->
+            <div class="mt-4 flex justify-center">
+              <div class="w-12 h-12 bg-primary-green/10 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Animated circle indicator -->
+          <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary-green/10 rounded-full hidden md:flex items-center justify-center animate-pulse" style="animation-delay: 1s;">
+            <div class="w-3 h-3 bg-primary-green rounded-full"></div>
+          </div>
+        </div>
+
+        <!-- Step 4 - Enhanced with animations and effects -->
+        <div class="relative flex flex-col items-center group animate-on-scroll fade-up" style="animation-delay: 0.6s;">
+          <div class="w-20 h-20 bg-gradient-to-br from-primary-green to-primary-green/80 rounded-2xl flex items-center justify-center mb-8 z-10 relative shadow-lg shadow-primary-green/20 transform group-hover:rotate-6 transition-all duration-500 group-hover:scale-110 animate-pulse-glow" style="animation-delay: 1.5s;">
+            <span class="text-white text-2xl font-bold">4</span>
+          </div>
+          <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 w-full transform transition-all duration-500 group-hover:shadow-lg group-hover:shadow-primary-green/10 group-hover:border-primary-green/40 h-full">
+            <h3 class="text-xl font-bold mb-3 text-center group-hover:text-primary-green transition-colors duration-300">Receive Invitations</h3>
+          <p class="text-secondary text-center">
+              Get direct invitations to tryouts and showcase events to take your football career to the next level.
+            </p>
+
+            <!-- Icon -->
+            <div class="mt-4 flex justify-center">
+              <div class="w-12 h-12 bg-primary-green/10 rounded-full flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                </svg>
+              </div>
+            </div>
+          </div>
+          <!-- Animated circle indicator -->
+          <div class="absolute -bottom-4 left-1/2 transform -translate-x-1/2 w-8 h-8 bg-primary-green/10 rounded-full hidden md:flex items-center justify-center animate-pulse" style="animation-delay: 1.5s;">
+            <div class="w-3 h-3 bg-primary-green rounded-full"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- New: Process Benefits -->
+      <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-6 animate-on-scroll fade-up" style="animation-delay: 0.8s;">
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/80 to-[#222222]/80 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 hover:scale-[1.02] group">
+          <div class="flex items-center mb-4">
+            <div class="p-2 bg-primary-green/10 rounded-lg mr-3 group-hover:bg-primary-green/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold">Time Saving</h3>
+          </div>
+          <p class="text-secondary">Our streamlined platform reduces the time it takes to connect talented players with professional scouts.</p>
+        </div>
+
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/80 to-[#222222]/80 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 hover:scale-[1.02] group">
+          <div class="flex items-center mb-4">
+            <div class="p-2 bg-primary-green/10 rounded-lg mr-3 group-hover:bg-primary-green/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold">Trusted Verification</h3>
+          </div>
+          <p class="text-secondary">All player profiles and scout accounts undergo thorough verification to ensure authenticity and security.</p>
+        </div>
+
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/80 to-[#222222]/80 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 hover:scale-[1.02] group">
+          <div class="flex items-center mb-4">
+            <div class="p-2 bg-primary-green/10 rounded-lg mr-3 group-hover:bg-primary-green/20 transition-all duration-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-bold">Career Advancement</h3>
+          </div>
+          <p class="text-secondary">Our platform has helped hundreds of players secure professional contracts and advance their football careers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section -->
+  <section class="py-24 bg-gradient-to-b from-[#252525] via-primary-dark to-primary-dark/90 relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-5"></div>
+    <div class="absolute -right-40 top-40 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px]"></div>
+    <div class="absolute -left-40 bottom-40 w-80 h-80 bg-primary-green/5 rounded-full blur-[100px]"></div>
+
+    <div class="absolute w-full h-full overflow-hidden opacity-10">
+      <div class="absolute w-2 h-2 bg-primary-green rounded-full animate-pulse" style="top: 20%; left: 10%; animation-duration: 3s;"></div>
+      <div class="absolute w-1 h-1 bg-primary-green rounded-full animate-pulse" style="top: 50%; left: 85%; animation-duration: 4s; animation-delay: 1s;"></div>
+      <div class="absolute w-2 h-2 bg-primary-green rounded-full animate-pulse" style="top: 70%; left: 30%; animation-duration: 5s; animation-delay: 2s;"></div>
+      <div class="absolute w-1 h-1 bg-primary-green rounded-full animate-pulse" style="top: 30%; left: 65%; animation-duration: 4s; animation-delay: 0.5s;"></div>
+      <div class="absolute w-2 h-2 bg-primary-green rounded-full animate-pulse" style="top: 85%; left: 50%; animation-duration: 3s; animation-delay: 1.5s;"></div>
+    </div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="text-center mb-20 animate-on-scroll fade-up">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+            </svg>
+            Testimonials
+          </span>
+        </div>
+        <h2 class="text-4xl font-bold mb-5 relative inline-block">
+          Success <span class="text-primary-green relative">
+            Stories
+            <span class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary-green to-transparent"></span>
+          </span>
+        </h2>
+        <p class="text-xl text-secondary max-w-3xl mx-auto leading-relaxed">
+          Hear from players and scouts who have found success through our platform and taken their careers to new heights.
+        </p>
+      </div>
+
+      <!--  testimonial   -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up">
+          <!-- Quote decoration -->
+          <div class="absolute top-4 right-4 text-primary-green/10 opacity-50 group-hover:opacity-80 transition-opacity duration-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+
+          <div class="flex items-center mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-green/30 to-primary-green/10 flex items-center justify-center mr-4 shadow-lg shadow-primary-green/5 border border-primary-green/30 transform group-hover:scale-110 transition-all duration-500 animate-pulse-glow">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold group-hover:text-primary-green transition-colors duration-300">Ahmed Hassan</h3>
+              <div class="flex flex-col">
+                <span class="text-primary-green text-sm">Professional Player</span>
+                <span class="inline-flex mt-1">
+                  <span class="text-yellow-400">★★★★★</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-secondary italic relative z-10 mb-4">
+            "Thanks to Pharaohs, I was discovered by a scout from Al Ahly Club. Within three months of joining the platform, I received multiple tryout invitations and secured a professional contract."
+          </p>
+
+          <div class="text-primary-green/80 text-sm font-medium flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Joined February 2023</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 2  -->
+        <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up" style="animation-delay: 0.2s;">
+          <!-- Quote decoration -->
+          <div class="absolute top-4 right-4 text-primary-green/10 opacity-50 group-hover:opacity-80 transition-opacity duration-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+
+          <div class="flex items-center mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-green/30 to-primary-green/10 flex items-center justify-center mr-4 shadow-lg shadow-primary-green/5 border border-primary-green/30 transform group-hover:scale-110 transition-all duration-500 animate-pulse-glow" style="animation-delay: 0.4s;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold group-hover:text-primary-green transition-colors duration-300">Mohamed Salah</h3>
+              <div class="flex flex-col">
+                <span class="text-primary-green text-sm">Youth Academy Player</span>
+                <span class="inline-flex mt-1">
+                  <span class="text-yellow-400">★★★★★</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-secondary italic relative z-10 mb-4">
+            "I received three tryout invitations within my first month on Pharaohs. The platform's video tools helped me showcase my specific skills, and scouts noticed immediately."
+          </p>
+
+          <div class="text-primary-green/80 text-sm font-medium flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Joined April 2023</span>
+          </div>
+        </div>
+
+        <!-- Testimonial 3  -->
+        <div class="tilt-card glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl p-8 border border-primary-green/20 transform transition-all duration-500 hover:scale-[1.02] hover:shadow-xl hover:shadow-primary-green/10 group relative overflow-hidden animate-on-scroll fade-up" style="animation-delay: 0.4s;">
+          <!-- Quote decoration -->
+          <div class="absolute top-4 right-4 text-primary-green/10 opacity-50 group-hover:opacity-80 transition-opacity duration-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-20 w-20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.433.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
+            </svg>
+          </div>
+
+          <div class="flex items-center mb-6 relative z-10">
+            <div class="w-16 h-16 rounded-full bg-gradient-to-br from-primary-green/30 to-primary-green/10 flex items-center justify-center mr-4 shadow-lg shadow-primary-green/5 border border-primary-green/30 transform group-hover:scale-110 transition-all duration-500 animate-pulse-glow" style="animation-delay: 0.8s;">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h3 class="text-xl font-bold group-hover:text-primary-green transition-colors duration-300">Karim Adel</h3>
+              <div class="flex flex-col">
+                <span class="text-primary-green text-sm">Professional Scout</span>
+                <span class="inline-flex mt-1">
+                  <span class="text-yellow-400">★★★★★</span>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <p class="text-secondary italic relative z-10 mb-4">
+            "As a scout for Zamalek SC, Pharaohs has revolutionized how I discover talent. The search filters and video showcase features have helped us sign three promising players in the last season alone."
+          </p>
+
+          <div class="text-primary-green/80 text-sm font-medium flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            <span>Joined January 2023</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Success Metrics -->
+      <div class="mt-20 grid grid-cols-1 md:grid-cols-4 gap-8 text-center animate-on-scroll fade-up" style="animation-delay: 0.6s;">
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/60 to-[#222222]/60 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 group">
+          <div class="text-4xl font-bold text-white mb-2 group-hover:text-primary-green transition-colors duration-300">1,200+</div>
+          <div class="text-secondary">Players Registered</div>
+        </div>
+
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/60 to-[#222222]/60 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 group">
+          <div class="text-4xl font-bold text-white mb-2 group-hover:text-primary-green transition-colors duration-300">300+</div>
+          <div class="text-secondary">Professional Scouts</div>
+        </div>
+
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/60 to-[#222222]/60 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 group">
+          <div class="text-4xl font-bold text-white mb-2 group-hover:text-primary-green transition-colors duration-300">180+</div>
+          <div class="text-secondary">Professional Contracts</div>
+        </div>
+
+        <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/60 to-[#222222]/60 backdrop-blur-sm rounded-xl p-6 border border-primary-green/20 transform transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/10 group">
+          <div class="text-4xl font-bold text-white mb-2 group-hover:text-primary-green transition-colors duration-300">5,000+</div>
+          <div class="text-secondary">Tryout Invitations</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-20 bg-primary-dark relative overflow-hidden">
+    <div class="absolute inset-0 bg-grid-pattern opacity-10"></div>
+    <div class="absolute top-0 left-1/4 w-64 h-64 bg-primary-green/5 rounded-full blur-[80px] animate-float-slow" style="animation-duration: 15s;"></div>
+    <div class="absolute bottom-0 right-1/4 w-64 h-64 bg-primary-green/5 rounded-full blur-[80px] animate-float-slow" style="animation-duration: 12s; animation-delay: 2s;"></div>
+
+    <div class="container mx-auto px-6 relative z-10">
+      <div class="glass-effect bg-gradient-to-r from-primary-green/20 to-primary-green/5 backdrop-blur-sm rounded-xl p-10 border border-primary-green/30 shadow-xl animate-on-scroll fade-up">
+        <div class="grid grid-cols-1 md:grid-cols-5 gap-10 items-center">
+          <div class="md:col-span-3">
+            <h2 class="text-3xl md:text-4xl font-bold mb-4 animate-on-scroll fade-up animate-visible">Ready to Take Your <span class="text-primary-green animate-highlightText">Football Career</span> to the Next Level?</h2>
+            <p class="text-xl text-secondary mb-8 animate-on-scroll fade-up animate-visible" style="animation-delay: 0.2s;">
+              Join thousands of players and scouts on Pharaoh's Path and be part of the future of Egyptian football. Your next opportunity is just a profile away.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8 animate-on-scroll fade-up animate-visible" style="animation-delay: 0.4s;">
+              <div class="flex items-center">
+                <div class="p-1 bg-primary-green/10 rounded-full mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-secondary">Free basic accounts</span>
+              </div>
+              <div class="flex items-center">
+                <div class="p-1 bg-primary-green/10 rounded-full mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-secondary">Profile creation in minutes</span>
+              </div>
+              <div class="flex items-center">
+                <div class="p-1 bg-primary-green/10 rounded-full mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-secondary">Support for all devices</span>
+              </div>
+              <div class="flex items-center">
+                <div class="p-1 bg-primary-green/10 rounded-full mr-3">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                </div>
+                <span class="text-secondary">24/7 customer support</span>
+              </div>
+            </div>
+
+            <div class="flex flex-col sm:flex-row gap-4 animate-on-scroll fade-up animate-visible" style="animation-delay: 0.6s;">
+              <a routerLink="/register" class="btn-primary text-center py-3.5 px-8 text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary-green/20 group relative overflow-hidden">
+                <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover:w-full transform skew-x-12"></span>
+                <span class="relative flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                  </svg>
+                  Get Started Now
+                </span>
+              </a>
+              <a routerLink="/contact" class="btn-secondary text-center py-3.5 px-8 text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-lg hover:border-primary-green/50 group relative overflow-hidden">
+                <span class="absolute inset-0 w-0 bg-primary-green/5 transition-all duration-500 group-hover:w-full transform skew-x-12"></span>
+                <span class="relative flex items-center justify-center">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
+                  Contact Us
+                </span>
+              </a>
+            </div>
+          </div>
+          <div class="md:col-span-2 relative h-64 md:h-auto animate-on-scroll fade-right animate-visible">
+            <div class="absolute inset-0 transform rotate-3 rounded-lg border border-primary-green/20 bg-primary-green/5 animate-float-slow" style="animation-duration: 8s;"></div>
+            <img src="assets/images/cta-image.jpg" alt="Football player" class="w-full h-full object-cover rounded-lg relative z-10 shadow-lg tilt-card"
+                 onerror="this.src='https://images.unsplash.com/photo-1560272564-c83b66b1ad12?q=80&w=1949&auto=format&fit=crop'">
+            <div class="absolute inset-0 bg-gradient-to-t from-primary-dark to-transparent rounded-lg z-20"></div>
+
+            <div class="absolute top-6 right-6 bg-primary-green/90 text-white text-sm font-bold py-1.5 px-3 rounded-full shadow-lg z-30 transform rotate-3 animate-pulse-glow">
+              Join Today!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+

@@ -1,0 +1,303 @@
+<!-- Main container -->
+<div class="min-h-screen bg-gradient-to-b from-primary-dark to-black p-4">
+  <div class="max-w-5xl mx-auto">
+    <app-feature-header title="Performance Dashboard" icon="stats"></app-feature-header>
+
+    <!-- Loading spinner -->
+    <div *ngIf="isLoading" class="flex justify-center items-center my-12">
+      <div class="relative w-20 h-20">
+        <div class="absolute top-0 left-0 w-full h-full border-4 border-primary-green/20 rounded-full"></div>
+        <div class="absolute top-0 left-0 w-full h-full border-t-4 border-primary-green rounded-full animate-spin"></div>
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-primary-green text-xs font-bold">LOADING</div>
+      </div>
+    </div>
+
+    <div *ngIf="!isLoading" class="backdrop-blur-sm bg-black/40 border border-primary-green/30 rounded-2xl shadow-2xl shadow-primary-green/10 overflow-hidden">
+      <!-- Header section -->
+      <div class="bg-gradient-to-r from-primary-green/20 to-transparent p-5 border-b border-primary-green/30">
+        <div class="flex items-center">
+          <div class="bg-primary-green/20 p-2 rounded-full mr-3">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+            </svg>
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-white">Statistics Manager</h3>
+            <p class="text-secondary text-sm">Update your statistics to showcase your performance</p>
+          </div>
+        </div>
+      </div>
+
+      <form [formGroup]="statsForm" (ngSubmit)="saveStats()" class="p-6">
+        <!-- Main content sections -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Left column - Match statistics -->
+          <div class="space-y-6">
+            <div class="flex items-center mb-6">
+              <div class="bg-primary-green/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-primary-green">Match Performance</h3>
+            </div>
+
+            <!-- Matches Played field -->
+            <div class="form-group mb-6 transform transition duration-300 ease-in-out hover:translate-x-2">
+              <label for="matches_played" class="flex justify-between text-white mb-2">
+                <span class="font-medium">Matches Played</span>
+                <span class="text-primary-green">{{ statsForm.get('matches_played')?.value || 0 }}</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="matches_played"
+                  formControlName="matches_played"
+                  class="form-input w-full bg-input border-2 border-input focus:border-primary-green focus:ring-2 focus:ring-primary-green rounded-lg pl-10 text-white"
+                  min="0"
+                >
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
+                  </svg>
+                </div>
+              </div>
+              <div *ngIf="statsForm.get('matches_played')?.invalid && statsForm.get('matches_played')?.touched" class="text-red-500 mt-1 text-sm">
+                Matches played must be a positive number
+              </div>
+            </div>
+
+            <!-- Goals field -->
+            <div class="form-group mb-6 transform transition duration-300 ease-in-out hover:translate-x-2">
+              <label for="goals" class="flex justify-between text-white mb-2">
+                <span class="font-medium">Goals Scored</span>
+                <span class="text-primary-green">{{ statsForm.get('goals')?.value || 0 }}</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="goals"
+                  formControlName="goals"
+                  class="form-input w-full bg-input border-2 border-input focus:border-primary-green focus:ring-2 focus:ring-primary-green rounded-lg pl-10 text-white"
+                  min="0"
+                >
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+                  </svg>
+                </div>
+              </div>
+              <div *ngIf="statsForm.get('goals')?.invalid && statsForm.get('goals')?.touched" class="text-red-500 mt-1 text-sm">
+                Goals must be a positive number
+              </div>
+            </div>
+
+            <!-- Assists field -->
+            <div class="form-group mb-6 transform transition duration-300 ease-in-out hover:translate-x-2">
+              <label for="assists" class="flex justify-between text-white mb-2">
+                <span class="font-medium">Assists Made</span>
+                <span class="text-primary-green">{{ statsForm.get('assists')?.value || 0 }}</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="assists"
+                  formControlName="assists"
+                  class="form-input w-full bg-input border-2 border-input focus:border-primary-green focus:ring-2 focus:ring-primary-green rounded-lg pl-10 text-white"
+                  min="0"
+                >
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 11.5V14m0-2.5v-6a1.5 1.5 0 113 0m-3 6a1.5 1.5 0 00-3 0v2a7.5 7.5 0 0015 0v-5a1.5 1.5 0 00-3 0m-6-3V11m0-5.5v-1a1.5 1.5 0 013 0v1m0 0V11m0-5.5a1.5 1.5 0 013 0v3m0 0V11" />
+                  </svg>
+                </div>
+              </div>
+              <div *ngIf="statsForm.get('assists')?.invalid && statsForm.get('assists')?.touched" class="text-red-500 mt-1 text-sm">
+                Assists must be a positive number
+              </div>
+            </div>
+          </div>
+
+          <!-- Right column - Discipline statistics -->
+          <div class="space-y-6">
+            <div class="flex items-center mb-6">
+              <div class="bg-primary-green/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M10 1.944A11.954 11.954 0 012.166 5C2.056 5.649 2 6.319 2 7c0 5.225 3.34 9.67 8 11.317C14.66 16.67 18 12.225 18 7c0-.682-.057-1.35-.166-2.001A11.954 11.954 0 0110 1.944zM11 14a1 1 0 11-2 0 1 1 0 012 0zm0-7a1 1 0 10-2 0v3a1 1 0 102 0V7z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-primary-green">Discipline Record</h3>
+            </div>
+
+            <!-- Yellow Cards field -->
+            <div class="form-group mb-6 transform transition duration-300 ease-in-out hover:translate-x-2">
+              <label for="yellow_cards" class="flex justify-between text-white mb-2">
+                <span class="font-medium">Yellow Cards</span>
+                <span class="text-yellow-400">{{ statsForm.get('yellow_cards')?.value || 0 }}</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="yellow_cards"
+                  formControlName="yellow_cards"
+                  class="form-input w-full bg-input border-2 border-input focus:border-yellow-400 focus:ring-2 focus:ring-yellow-400 rounded-lg pl-10 text-white"
+                  min="0"
+                >
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <div class="w-5 h-7 bg-yellow-400 rounded"></div>
+                </div>
+              </div>
+              <div *ngIf="statsForm.get('yellow_cards')?.invalid && statsForm.get('yellow_cards')?.touched" class="text-red-500 mt-1 text-sm">
+                Yellow cards must be a positive number
+              </div>
+            </div>
+
+            <!-- Red Cards field -->
+            <div class="form-group mb-6 transform transition duration-300 ease-in-out hover:translate-x-2">
+              <label for="red_cards" class="flex justify-between text-white mb-2">
+                <span class="font-medium">Red Cards</span>
+                <span class="text-red-500">{{ statsForm.get('red_cards')?.value || 0 }}</span>
+              </label>
+              <div class="relative">
+                <input
+                  type="number"
+                  id="red_cards"
+                  formControlName="red_cards"
+                  class="form-input w-full bg-input border-2 border-input focus:border-red-500 focus:ring-2 focus:ring-red-500 rounded-lg pl-10 text-white"
+                  min="0"
+                >
+                <div class="absolute left-3 top-1/2 transform -translate-y-1/2">
+                  <div class="w-5 h-7 bg-red-500 rounded"></div>
+                </div>
+              </div>
+              <div *ngIf="statsForm.get('red_cards')?.invalid && statsForm.get('red_cards')?.touched" class="text-red-500 mt-1 text-sm">
+                Red cards must be a positive number
+              </div>
+            </div>
+
+            <!-- Performance metrics visualization -->
+            <div class="mt-8">
+              <h4 class="text-lg font-semibold text-white mb-4">Performance Metrics</h4>
+              <div class="relative h-40 bg-gradient-to-b from-primary-dark/60 to-black/60 rounded-lg p-4 overflow-hidden border border-primary-green/20">
+                <div class="mb-4">
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary text-xs">Goal Contributions</span>
+                    <span class="text-primary-green text-xs">{{ (statsForm.get('goals')?.value || 0) + (statsForm.get('assists')?.value || 0) }}</span>
+                  </div>
+                  <div class="w-full bg-gray-700/30 rounded-full h-1.5 overflow-hidden">
+                    <div class="bg-primary-green h-1.5 rounded-full"
+                         [style.width.%]="calculateGoalContributionPercentage()"></div>
+                  </div>
+                </div>
+
+                <!-- Discipline ratio visualization -->
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary text-xs">Discipline Ratio</span>
+                    <span [ngClass]="calculateDisciplineRatio() > 70 ? 'text-primary-green' : calculateDisciplineRatio() > 40 ? 'text-yellow-400' : 'text-red-500'" class="text-xs">{{ calculateDisciplineRatio() }}%</span>
+                  </div>
+                  <div class="w-full bg-gray-700/30 rounded-full h-1.5 overflow-hidden">
+                    <div [ngClass]="calculateDisciplineRatio() > 70 ? 'bg-primary-green' : calculateDisciplineRatio() > 40 ? 'bg-yellow-400' : 'bg-red-500'" class="h-1.5 rounded-full"
+                         [style.width.%]="calculateDisciplineRatio()"></div>
+                  </div>
+                </div>
+
+                <div class="absolute -bottom-8 -right-8 w-32 h-32 rounded-full bg-primary-green/5 blur-xl"></div>
+                <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[300px] h-[300px] border border-primary-green/10 rounded-full animate-pulse"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Rating preview card -->
+        <div class="mt-10 bg-gradient-to-r from-black/60 to-primary-dark/60 p-6 rounded-xl border border-primary-green/30 transform transition duration-500 hover:scale-[1.01] hover:shadow-lg">
+          <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center">
+              <div class="bg-primary-green/20 p-2 rounded-full mr-3">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                </svg>
+              </div>
+              <h3 class="text-xl font-bold text-white">Scout View</h3>
+            </div>
+
+            <div class="px-3 py-1 bg-primary-green/10 rounded-full flex items-center">
+              <span class="text-primary-green mr-2 text-sm">Rating:</span>
+              <span [ngClass]="RatingUtil.getRatingClass(calculateEfficiency())" class="font-bold text-lg">{{ calculateEfficiency().toFixed(1) }}/5</span>
+            </div>
+          </div>
+
+          <p class="text-secondary mb-6 text-sm">This is how your efficiency rating will appear to scouts - it's calculated based on your match performance and discipline record.</p>
+
+          <!-- Rating gauge visualization -->
+          <div class="relative pt-4 pb-2">
+            <div class="flex justify-between mb-1">
+              <span class="text-red-500 text-xs">Poor</span>
+              <span class="text-yellow-400 text-xs">Average</span>
+              <span class="text-primary-green text-xs">Excellent</span>
+            </div>
+
+            <div class="w-full h-3 bg-gray-700/50 rounded-full overflow-hidden">
+              <div class="h-full rounded-full bg-gradient-to-r from-red-500 via-yellow-400 to-primary-green" [style.width.%]="((calculateEfficiency()-1)/4)*100"></div>
+            </div>
+
+            <!-- Indicator pointer -->
+            <div class="absolute bottom-0 transform -translate-x-1/2" [style.left.%]="((calculateEfficiency()-1)/4)*100">
+              <div class="w-0 h-0 border-l-[8px] border-r-[8px] border-b-[8px] border-l-transparent border-r-transparent border-b-white"></div>
+            </div>
+          </div>
+
+          <!-- Performance statistics summary -->
+          <div class="grid grid-cols-3 gap-4 mt-6">
+            <div class="text-center">
+              <div class="text-primary-green text-2xl font-bold">{{ (statsForm.get('goals')?.value || 0) / (statsForm.get('matches_played')?.value || 1) | number:'1.2-2' }}</div>
+              <div class="text-secondary text-xs">Goals per Match</div>
+            </div>
+            <div class="text-center">
+              <div class="text-primary-green text-2xl font-bold">{{ (statsForm.get('assists')?.value || 0) / (statsForm.get('matches_played')?.value || 1) | number:'1.2-2' }}</div>
+              <div class="text-secondary text-xs">Assists per Match</div>
+            </div>
+            <div class="text-center">
+              <div [ngClass]="{
+                'text-red-500': (statsForm.get('yellow_cards')?.value || 0) + (statsForm.get('red_cards')?.value || 0) > 5,
+                'text-yellow-400': (statsForm.get('yellow_cards')?.value || 0) + (statsForm.get('red_cards')?.value || 0) > 2 && (statsForm.get('yellow_cards')?.value || 0) + (statsForm.get('red_cards')?.value || 0) <= 5,
+                'text-primary-green': (statsForm.get('yellow_cards')?.value || 0) + (statsForm.get('red_cards')?.value || 0) <= 2
+              }" class="text-2xl font-bold">{{ (statsForm.get('yellow_cards')?.value || 0) + (statsForm.get('red_cards')?.value || 0) }}</div>
+              <div class="text-secondary text-xs">Cards Received</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form submission controls -->
+        <div class="flex items-center justify-between mt-8">
+          <div class="text-secondary text-sm">
+            <span *ngIf="statsForm.pristine">No changes made yet</span>
+            <span *ngIf="!statsForm.pristine" class="text-primary-green">Unsaved changes</span>
+          </div>
+
+          <button
+            type="submit"
+            [disabled]="statsForm.invalid || isSaving"
+            class="group relative inline-flex items-center justify-center overflow-hidden rounded-lg bg-gradient-to-br from-primary-green to-green-600 p-0.5 text-sm font-medium text-white hover:text-white focus:outline-none focus:ring-4 focus:ring-primary-green/50 disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <span class="relative rounded-md bg-black/30 px-5 py-2.5 transition-all duration-300 ease-in-out group-hover:bg-opacity-0">
+              <span *ngIf="!isSaving" class="flex items-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                </svg>
+                Save Statistics
+              </span>
+              <span *ngIf="isSaving" class="flex items-center">
+                <svg class="animate-spin -ml-1 mr-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              </span>
+            </span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

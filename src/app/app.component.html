@@ -1,0 +1,32 @@
+<app-header></app-header>
+
+<main class="min-h-screen bg-gray-50 text-white">
+  <router-outlet />
+</main>
+
+<app-footer></app-footer>
+
+<ngx-spinner 
+  bdColor="rgba(0, 0, 0, 0.8)" 
+  [fullScreen]="true"
+  [showSpinner]="true"
+  type="custom">
+  <div class="spinner-content">
+    <img src="football-spinner.gif" alt="Football Loading" >
+  </div>
+</ngx-spinner>
+
+<style>
+  .spinner-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .spinner-content img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    background: transparent;
+  }
+</style>

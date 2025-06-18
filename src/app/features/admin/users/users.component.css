@@ -1,0 +1,203 @@
+/* Animation classes */
+.animate-float-slow {
+  animation: float 5s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 3s ease-in-out infinite;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.animate-slideInFromBottom {
+  animation: slideInFromBottom 0.5s ease-out forwards;
+}
+
+/* Keyframes */
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 10px 0 rgba(52, 211, 153, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px 5px rgba(52, 211, 153, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 10px 0 rgba(52, 211, 153, 0.2);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideInFromBottom {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Custom scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(52, 211, 153, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(52, 211, 153, 0.5);
+}
+
+/* Glass effect */
+.glass-effect {
+  backdrop-filter: blur(12px);
+  background-color: rgba(30, 30, 30, 0.8);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  transition: all 0.3s ease;
+}
+
+.glass-effect:hover {
+  border-color: rgba(52, 211, 153, 0.4);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), 0 0 8px rgba(52, 211, 153, 0.1);
+}
+
+/* Table styling */
+.table-container {
+  backdrop-filter: blur(12px);
+  background-color: rgba(20, 20, 20, 0.7);
+  border-radius: 0.75rem;
+  overflow: hidden;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.admin-table th {
+  background-color: rgba(0, 0, 0, 0.2);
+  color: rgba(52, 211, 153, 0.9);
+  font-weight: 500;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
+  padding: 1rem;
+}
+
+.admin-table tr {
+  transition: all 0.2s ease;
+}
+
+.admin-table tr:hover td {
+  background-color: rgba(52, 211, 153, 0.05);
+}
+
+.admin-table td {
+  padding: 0.75rem 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  transition: all 0.2s ease;
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(to right, rgba(52, 211, 153, 0.7), rgba(16, 185, 129, 0.7));
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(to right, rgba(52, 211, 153, 0.8), rgba(16, 185, 129, 0.8));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(52, 211, 153, 0.25);
+}
+
+.btn-secondary {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(52, 211, 153, 0.2);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-secondary:hover {
+  background: rgba(30, 41, 59, 0.5);
+  border-color: rgba(52, 211, 153, 0.3);
+  transform: translateY(-1px);
+}
+
+.btn-danger {
+  background: linear-gradient(to right, rgba(239, 68, 68, 0.7), rgba(185, 28, 28, 0.7));
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-danger:hover {
+  background: linear-gradient(to right, rgba(239, 68, 68, 0.8), rgba(185, 28, 28, 0.8));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(239, 68, 68, 0.25);
+}
+
+.btn-warning {
+  background: linear-gradient(to right, rgba(234, 179, 8, 0.7), rgba(202, 138, 4, 0.7));
+  border: 1px solid rgba(234, 179, 8, 0.3);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  transition: all 0.2s ease;
+}
+
+.btn-warning:hover {
+  background: linear-gradient(to right, rgba(234, 179, 8, 0.8), rgba(202, 138, 4, 0.8));
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(234, 179, 8, 0.25);
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0.75rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  text-transform: capitalize;
+}

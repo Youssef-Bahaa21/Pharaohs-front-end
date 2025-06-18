@@ -1,0 +1,317 @@
+<div class="min-h-screen bg-primary-dark text-white relative overflow-hidden">
+  <!-- Background elements -->
+  <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/70 to-primary-dark z-0"></div>
+  <div class="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
+  <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/20 rounded-full blur-[100px] animate-float-slow"></div>
+  <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute w-4 h-4 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 15%; left: 10%; animation-duration: 8s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 30%; left: 20%; animation-duration: 9s; animation-delay: 1s;"></div>
+    <div class="absolute w-5 h-5 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 70%; left: 80%; animation-duration: 10s; animation-delay: 0.5s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 60%; left: 40%; animation-duration: 7s; animation-delay: 2s;"></div>
+  </div>
+
+  <div class="container mx-auto px-4 sm:px-6 py-10 relative z-10">
+    <div class="max-w-6xl mx-auto animate-slideInFromBottom">
+      <!-- Page Header -->
+      <div class="mb-8">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full mb-5 border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300 animate-pulse-glow">
+          <span class="text-primary-green font-semibold flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+            </svg>
+            User Administration
+          </span>
+        </div>
+        <app-feature-header title="User Management" icon="users"></app-feature-header>
+        <p class="text-gray-300 mt-2 max-w-3xl">Manage user accounts, update status, reset passwords, and maintain platform security.</p>
+      </div>
+
+      <!-- Loading Spinner -->
+      <div *ngIf="isLoading" class="flex justify-center items-center h-64">
+        <div class="relative">
+          <div class="w-16 h-16 border-t-4 border-b-4 border-primary-green rounded-full animate-spin"></div>
+          <div class="w-16 h-16 border-l-4 border-r-4 border-transparent border-opacity-50 rounded-full absolute top-0 left-0 animate-pulse-glow"></div>
+        </div>
+      </div>
+
+      <!-- Users Table -->
+      <div *ngIf="!isLoading" class="glass-effect rounded-xl overflow-hidden shadow-xl animate-fadeIn">
+        <div *ngIf="users.length; else noUsers" class="overflow-x-auto custom-scrollbar">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th class="text-left">User</th>
+                <th class="text-left">Email</th>
+                <th class="text-center">Role</th>
+                <th class="text-center">Status</th>
+                <th class="text-left">Joined</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let user of users; let i = index" class="animate-fadeIn" [style.animation-delay]="(i * 50) + 'ms'">
+                <td class="text-left">
+                  <div class="flex items-center space-x-3">
+                    <div class="h-10 w-10 rounded-full bg-primary-green/10 flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p class="font-medium text-white">{{ user.name }}</p>
+                      <p class="text-xs text-gray-400">#{{ user.id }}</p>
+                    </div>
+                  </div>
+                </td>
+                <td class="text-left text-gray-300">{{ user.email }}</td>
+                <td class="text-center">
+                  <span [ngClass]="getRoleClass(user.role)" class="role-badge">
+                    {{ user.role }}
+                  </span>
+                </td>
+                <td class="text-center">
+                  <span [ngClass]="'px-2 py-1 rounded-full text-xs font-medium ' + 
+                    (user.status === 'active' ? 'bg-green-500/20 text-green-300' : 
+                    user.status === 'inactive' ? 'bg-yellow-500/20 text-yellow-300' : 
+                    user.status === 'suspended' ? 'bg-red-500/20 text-red-300' : 'bg-gray-500/20 text-gray-300')">
+                    {{ user.status || 'active' }}
+                  </span>
+                </td>
+                <td class="text-left text-gray-400 text-sm">{{ formatDate(user.created_at || user.createdAt) }}</td>
+                <td class="text-right">
+                  <div class="flex justify-end space-x-2">
+                    <button
+                      (click)="startEditStatus(user)"
+                      class="bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 hover:text-blue-300 text-xs px-2 py-1 rounded border border-blue-600/30 transition-all duration-300 flex items-center space-x-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                      </svg>
+                      <span>Status</span>
+                    </button>
+                    <button
+                      (click)="resetPassword(user)"
+                      class="bg-yellow-600/20 hover:bg-yellow-600/30 text-yellow-400 hover:text-yellow-300 text-xs px-2 py-1 rounded border border-yellow-600/30 transition-all duration-300 flex items-center space-x-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+                      </svg>
+                      <span>Reset</span>
+                    </button>
+                    <button
+                      (click)="deleteUser(user.id)"
+                      class="bg-red-600/20 hover:bg-red-600/30 text-red-400 hover:text-red-300 text-xs px-2 py-1 rounded border border-red-600/30 transition-all duration-300 flex items-center space-x-1">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                      </svg>
+                      <span>Delete</span>
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <ng-template #noUsers>
+          <div class="bg-black/20 rounded-lg p-8 text-center border border-primary-green/10 animate-fadeIn">
+            <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-primary-green/10 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green/70" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+              </svg>
+            </div>
+            <h3 class="text-xl font-semibold text-white mb-2">No Users Found</h3>
+            <p class="text-gray-400 mb-6">There are currently no users registered in the system.</p>
+          </div>
+        </ng-template>
+      </div>
+    </div>
+  </div>
+
+  <!-- Status Update Modal -->
+  <div *ngIf="editingUser" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-md overflow-hidden animate-fadeIn">
+    <div class="glass-effect backdrop-blur-md rounded-xl border border-primary-green/30 shadow-2xl w-11/12 max-w-md flex flex-col overflow-hidden relative animate-slideInFromBottom">
+      <div class="absolute -right-40 -top-40 w-80 h-80 bg-primary-green/10 rounded-full blur-[100px]"></div>
+      <div class="absolute -left-40 -bottom-40 w-80 h-80 bg-primary-green/5 rounded-full blur-[100px]"></div>
+
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center p-5 border-b border-primary-green/20 flex-shrink-0 relative z-10">
+        <div class="flex items-center">
+          <div class="relative mr-3 bg-primary-green/10 p-2 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+            </svg>
+            <div class="absolute inset-0 bg-primary-green/20 rounded-full blur-sm -z-10"></div>
+          </div>
+          <h3 class="text-xl font-bold text-white">
+            <span class="relative">
+              Update User Status
+              <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary-green to-transparent"></span>
+            </span>
+          </h3>
+        </div>
+
+        <button 
+          (click)="cancelEditStatus()" 
+          class="p-2 rounded-full hover:bg-black/30 text-white transition-all duration-300 hover:rotate-90 transform group">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-primary-green transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 relative z-10">
+        <div class="mb-6">
+          <div class="flex items-center space-x-4 mb-6">
+            <div class="h-12 w-12 rounded-full bg-primary-green/10 flex items-center justify-center flex-shrink-0">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+              </svg>
+            </div>
+            <div>
+              <h4 class="text-lg font-semibold text-white">{{ editingUser.name }}</h4>
+              <p class="text-gray-400">{{ editingUser.email }}</p>
+            </div>
+          </div>
+
+          <label class="block text-sm text-gray-300 mb-2">User Status</label>
+          <div class="relative">
+            <select
+              [(ngModel)]="selectedStatus"
+              class="w-full p-3 pl-4 bg-black/30 rounded-lg border border-primary-green/30 focus:border-primary-green/70 focus:outline-none transition-all duration-300 text-white appearance-none">
+              <option value="active">Active - User has full access to the platform</option>
+              <option value="inactive">Inactive - User account is temporarily paused</option>
+              <option value="suspended">Suspended - User account is suspended due to violations</option>
+            </select>
+            <div class="absolute inset-y-0 right-0 flex items-center px-2 pointer-events-none">
+              <svg class="w-5 h-5 text-primary-green" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </div>
+          </div>
+
+          <div class="mt-2 text-xs text-gray-400">
+            <div *ngIf="selectedStatus === 'active'" class="flex items-center mt-2 text-green-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+              </svg>
+              User will have full access to platform features
+            </div>
+            <div *ngIf="selectedStatus === 'inactive'" class="flex items-center mt-2 text-yellow-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              User will not be able to log in, but data is preserved
+            </div>
+            <div *ngIf="selectedStatus === 'suspended'" class="flex items-center mt-2 text-red-400">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              User account is suspended due to violations or terms breach
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="flex justify-end space-x-3">
+          <button
+            (click)="cancelEditStatus()"
+            class="btn-secondary">
+            Cancel
+          </button>
+          <button
+            (click)="saveUserStatus()"
+            class="btn-primary">
+            Update Status
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Password Reset Result Modal -->
+  <div *ngIf="resetPasswordResult" class="fixed inset-0 bg-black/80 flex items-center justify-center z-50 backdrop-blur-md overflow-hidden animate-fadeIn">
+    <div class="glass-effect backdrop-blur-md rounded-xl border border-primary-green/30 shadow-2xl w-11/12 max-w-md flex flex-col overflow-hidden relative animate-slideInFromBottom">
+      <div class="absolute -right-40 -top-40 w-80 h-80 bg-primary-green/10 rounded-full blur-[100px]"></div>
+      <div class="absolute -left-40 -bottom-40 w-80 h-80 bg-primary-green/5 rounded-full blur-[100px]"></div>
+
+      <!-- Modal Header -->
+      <div class="flex justify-between items-center p-5 border-b border-primary-green/20 flex-shrink-0 relative z-10">
+        <div class="flex items-center">
+          <div class="relative mr-3 bg-yellow-500/10 p-2 rounded-full">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z" />
+            </svg>
+            <div class="absolute inset-0 bg-yellow-500/20 rounded-full blur-sm -z-10"></div>
+          </div>
+          <h3 class="text-xl font-bold text-white">
+            <span class="relative">
+              Password Reset
+              <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-yellow-500 to-transparent"></span>
+            </span>
+          </h3>
+        </div>
+
+        <button 
+          (click)="closePasswordReset()" 
+          class="p-2 rounded-full hover:bg-black/30 text-white transition-all duration-300 hover:rotate-90 transform group">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 group-hover:text-primary-green transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="p-6 relative z-10">
+        <div class="mb-6">
+          <p class="mb-4">A temporary password has been generated for user ID: <span class="text-primary-green font-semibold">{{ resetPasswordResult.userId }}</span></p>
+          
+          <div class="p-4 bg-black/30 rounded-lg border border-yellow-500/30 mb-6">
+            <div class="flex items-center justify-between mb-2">
+              <label class="text-sm text-gray-400">Temporary Password:</label>
+              <div class="flex space-x-1">
+                <button class="text-xs bg-black/30 text-primary-green py-1 px-2 rounded hover:bg-black/50 transition-colors">
+                  Copy
+                </button>
+              </div>
+            </div>
+            <div class="font-mono bg-black/50 rounded p-3 text-yellow-400 font-medium tracking-wider break-all text-center">
+              {{ resetPasswordResult.tempPassword }}
+            </div>
+          </div>
+
+          <div class="bg-black/20 rounded-lg p-4 border border-primary-green/20">
+            <div class="flex items-start mb-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+              <p class="text-sm text-gray-300">
+                Please share this temporary password with the user securely. They will be required to change it on their next login.
+              </p>
+            </div>
+            <div class="flex items-start">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-yellow-500 mr-2 flex-shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+              <p class="text-sm text-yellow-400">
+                This password will only be shown once and cannot be recovered again.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Actions -->
+        <div class="flex justify-end">
+          <button
+            (click)="closePasswordReset()"
+            class="btn-primary">
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

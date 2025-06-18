@@ -1,0 +1,186 @@
+<div class="min-h-screen bg-primary-dark text-white relative overflow-hidden">
+  <!-- Background elements -->
+  <div class="absolute inset-0 bg-black opacity-60 z-0"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-transparent via-primary-dark/70 to-primary-dark z-0"></div>
+  <div class="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
+  <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/20 rounded-full blur-[100px] animate-float-slow"></div>
+  <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute w-4 h-4 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 15%; left: 10%; animation-duration: 8s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 30%; left: 20%; animation-duration: 9s; animation-delay: 1s;"></div>
+    <div class="absolute w-5 h-5 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 70%; left: 80%; animation-duration: 10s; animation-delay: 0.5s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 60%; left: 40%; animation-duration: 7s; animation-delay: 2s;"></div>
+  </div>
+
+  <div class="flex flex-col items-center justify-center min-h-screen relative z-10 px-4 py-10">
+    <!-- Registration Form Container -->
+    <div class="w-full max-w-md animate-slideInFromBottom">
+      <div class="glass-effect bg-gradient-to-br from-[#2A2A2A]/90 to-[#222222]/90 backdrop-blur-sm rounded-xl border border-primary-green/30 shadow-xl shadow-black/50 overflow-hidden transform transition-all duration-500 hover:shadow-primary-green/10">
+        <!-- Header Section -->
+        <div class="bg-gradient-to-r from-black/60 to-black/40 border-b border-primary-green/20 p-6">
+          <app-feature-header title="Create Account" icon="profile"></app-feature-header>
+        </div>
+
+        <!-- Registration Form -->
+        <div class="p-8">
+          <form [formGroup]="form" (ngSubmit)="register()" class="space-y-5">
+            <!-- Username Field -->
+            <div class="form-group">
+              <label class="text-sm text-primary-green/80 mb-2 block">Username</label>
+              <div class="relative group">
+                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" />
+                  </svg>
+                  <input
+                    type="text"
+                    formControlName="name"
+                    class="w-full bg-transparent text-white focus:outline-none"
+                    placeholder="Enter your username"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Email Field -->
+            <div class="form-group">
+              <label class="text-sm text-primary-green/80 mb-2 block">Email Address</label>
+              <div class="relative group">
+                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M2.003 5.884L10 9.882l7.997-3.998A2 2 0 0016 4H4a2 2 0 00-1.997 1.884z" />
+                    <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z" />
+                  </svg>
+                  <input
+                    type="email"
+                    formControlName="email"
+                    class="w-full bg-transparent text-white focus:outline-none"
+                    placeholder="Enter your email"
+                  />
+                </div>
+              </div>
+            </div>
+
+            <!-- Password Field -->
+            <div class="form-group">
+              <label class="text-sm text-primary-green/80 mb-2 block">Password</label>
+              <div class="relative group">
+                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+                  </svg>
+                  <input
+                    type="password"
+                    formControlName="password"
+                    class="w-full bg-transparent text-white focus:outline-none"
+                    placeholder="Create a password"
+                  />
+                </div>
+              </div>
+            </div>
+<!-- Confirm Password -->
+<div class="form-group">
+  <label class="text-sm text-primary-green/80 mb-2 block">Confirm Password</label>
+  <div class="relative group">
+    <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+    <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+        <path fill-rule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clip-rule="evenodd" />
+      </svg>
+      <input
+        type="password"
+        formControlName="confirmPassword"
+        class="w-full bg-transparent text-white focus:outline-none"
+        placeholder="Confirm your password"
+      />
+    </div>
+  </div>
+</div>
+            <!-- Role Selection -->
+            <div class="form-group">
+              <label class="text-sm text-primary-green/80 mb-2 block">Select Role</label>
+              <div class="relative group">
+                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
+                  </svg>
+                  <select
+                    formControlName="role"
+                    class="w-full bg-transparent text-white focus:outline-none"
+                  >
+                    <option value="" disabled selected class="bg-[#222222] text-white">Select Role</option>
+                    <option value="player" class="bg-[#222222] text-white">Player</option>
+                    <option value="scout" class="bg-[#222222] text-white">Scout</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Date of Birth -->
+            <div class="form-group">
+              <label class="text-sm text-primary-green/80 mb-2 block">Date of Birth</label>
+              <div class="relative group">
+                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
+                  </svg>
+                  <input
+                    type="date"
+                    formControlName="date_of_birth"
+                    class="w-full bg-transparent text-white focus:outline-none"
+                    placeholder="Date of Birth"
+                    [max]="today"
+                  />
+                </div>
+              </div>
+            </div>
+
+            
+
+            <!-- Register Button -->
+            <button
+              type="submit"
+              class="w-full py-3.5 px-6 bg-gradient-to-r from-primary-green/80 to-primary-green/60 text-white rounded-lg font-semibold transform transition-all duration-300 hover:scale-[1.02] hover:shadow-lg hover:shadow-primary-green/20 group relative overflow-hidden mt-6"
+            >
+              <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover:w-full transform skew-x-12"></span>
+              <span class="relative flex items-center justify-center">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                </svg>
+                CREATE ACCOUNT
+              </span>
+            </button>
+
+            <!-- Login Link -->
+            <div class="mt-6 text-center">
+              <p class="text-secondary">Already have an account?
+                <a routerLink="/login" class="text-primary-green hover:text-white font-semibold transition-colors duration-300 relative inline-block group">
+                  Sign in
+                  <span class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-green group-hover:w-full transition-all duration-300"></span>
+                </a>
+              </p>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Security Indicator -->
+      <div class="mt-6 text-center">
+        <div class="inline-block bg-primary-green/20 px-4 py-1.5 rounded-full border border-primary-green/30 backdrop-blur-sm shadow-lg shadow-primary-green/5 transform hover:scale-105 transition-all duration-300">
+          <span class="text-primary-green font-semibold flex items-center text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            Secure Registration
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

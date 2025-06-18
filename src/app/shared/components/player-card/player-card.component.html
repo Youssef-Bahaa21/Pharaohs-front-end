@@ -1,0 +1,358 @@
+<div class="glass-effect rounded-xl shadow-xl border border-primary-green/30 overflow-hidden transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,200,83,0.1)] hover:border-primary-green/40 group animate-on-scroll fade-up animate-visible">
+  <!-- Animated background elements -->
+  <div class="absolute inset-0 opacity-5 overflow-hidden">
+    <div class="absolute -right-16 -top-16 w-32 h-32 bg-primary-green/10 rounded-full blur-xl group-hover:bg-primary-green/15 transition-all duration-700"></div>
+    <div class="absolute -left-20 -bottom-20 w-40 h-40 bg-primary-green/5 rounded-full blur-xl group-hover:bg-primary-green/10 transition-all duration-700"></div>
+  </div>
+
+  <!-- Post Header with Player Info -->
+  <div class="flex items-center p-5 border-b border-primary-green/20 bg-gradient-to-r from-black/60 to-primary-dark/60 backdrop-blur-sm">
+    <div class="flex items-center cursor-pointer group/profile" (click)="onGoToProfile(post.playerId)">
+      <div class="relative glow-hover">
+        <div *ngIf="player?.profileImage; else defaultPostPlayerImage" class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary-green shadow-lg group-hover/profile:border-white transition-all duration-300 hover:scale-105">
+          <img [src]="player?.profileImage" alt="Profile Image" class="w-full h-full object-cover" onerror="this.src='profile.png'" />
+        </div>
+        <ng-template #defaultPostPlayerImage>
+          <div class="w-14 h-14 rounded-full overflow-hidden border-2 border-primary-green shadow-lg group-hover/profile:border-white transition-all duration-300 hover:scale-105">
+            <img src="profile.png" alt="Default Profile" class="w-full h-full object-cover" />
+          </div>
+        </ng-template>
+        <!-- Subtle glow on hover -->
+        <div class="absolute inset-0 rounded-full bg-primary-green/0 group-hover/profile:bg-primary-green/20 blur-md transition-all duration-500 -z-10"></div>
+      </div>
+
+      <div class="ml-4">
+        <h3 class="text-xl font-semibold text-white group-hover/profile:text-primary-green transition-colors duration-300 flex items-center">
+          <span class="relative">
+            {{ player?.name }}
+            <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-green to-transparent group-hover/profile:w-full transition-all duration-500"></span>
+          </span>
+          <span class="ml-2 bg-primary-green/20 text-primary-green text-xs px-2 py-0.5 rounded-full">Player</span>
+        </h3>
+        <div class="flex items-center text-secondary text-sm mt-1">
+          <span class="bg-primary-green/10 px-2 py-0.5 rounded-full text-primary-green">{{ player?.position || 'Player' }}</span>
+          <span *ngIf="player?.club" class="mx-2 text-gray-500">•</span>
+          <span *ngIf="player?.club" class="bg-primary-green/10 px-2 py-0.5 rounded-full text-primary-green">{{ player?.club }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scout Action Buttons and Post Date -->
+    <div class="ml-auto flex flex-wrap items-center gap-2">
+      <!-- Owner Actions - Edit & Delete (Visible only to the post owner) -->
+      <div *ngIf="isCurrentUserPost(post.playerId)" class="flex items-center gap-2 mr-2">
+        <!-- Edit button only shown when user is the actual owner, not for admins -->
+        <button
+          *ngIf="post.playerId.toString() === currentUserId"
+          (click)="onOpenUpdate(post)"
+          [disabled]="isDeletingPost[post.id]"
+          class="tilt-card bg-black/40 text-blue-400 px-3 py-1.5 rounded-lg transition-all duration-300 flex items-center border border-blue-500/20 hover:border-blue-500/40 shadow-sm hover:shadow-md transform hover:scale-105 disabled:opacity-50 disabled:transform-none group/btn">
+          <span class="absolute inset-0 w-0 bg-blue-500/10 transition-all duration-500 group-hover/btn:w-full"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+          </svg>
+          <span class="text-xs relative z-10">Edit</span>
+        </button>
+
+        <button
+          (click)="onDeletePost(post.id)"
+          [disabled]="isDeletingPost[post.id]"
+          class="tilt-card bg-black/40 text-red-400 px-3 py-1.5 rounded-lg transition-all duration-300 flex items-center border border-red-500/20 hover:border-red-500/40 shadow-sm hover:shadow-md transform hover:scale-105 disabled:opacity-50 disabled:transform-none group/btn">
+          <span class="absolute inset-0 w-0 bg-red-500/10 transition-all duration-500 group-hover/btn:w-full"></span>
+          <svg *ngIf="isDeletingPost[post.id]" class="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+          <svg *ngIf="!isDeletingPost[post.id]" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          <span class="text-xs relative z-10">Delete</span>
+        </button>
+        
+        <!-- Admin badge when deleting as admin -->
+        <div *ngIf="userRole === 'admin' && post.playerId.toString() !== currentUserId" 
+             class="bg-red-500/20 text-red-400 px-2 py-1 rounded-full text-xs">
+          Admin Action
+        </div>
+      </div>
+
+      <!-- Scout Actions -->
+      <div *ngIf="userRole === 'scout'" class="flex items-center gap-2 mr-2">
+        <ng-container *ngIf="player?.id as playerId">
+          <!-- Shortlist Button - Shows different states for shortlisted/not shortlisted -->
+          <button *ngIf="!isShortlisted(playerId.toString())"
+                  (click)="onShortlistAdd(playerId)"
+                  [disabled]="isAddingToShortlist(playerId.toString())"
+                  class="tilt-card bg-black/40 text-primary-green px-3 py-1.5 rounded-lg transition-all duration-300 flex items-center border border-primary-green/20 hover:border-primary-green/40 shadow-sm hover:shadow-md transform hover:scale-105 disabled:opacity-50 disabled:transform-none group/btn">
+            <span class="absolute inset-0 w-0 bg-primary-green/10 transition-all duration-500 group-hover/btn:w-full"></span>
+            <svg *ngIf="isAddingToShortlist(playerId.toString())" class="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <svg *ngIf="!isAddingToShortlist(playerId.toString())" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+            <span class="text-xs relative z-10">Shortlist</span>
+          </button>
+
+          <button *ngIf="isShortlisted(playerId.toString())"
+                 (click)="onShortlistRemove(playerId)"
+                 [disabled]="isRemovingFromShortlist(playerId.toString())"
+                 class="tilt-card bg-primary-green/20 text-primary-green px-3 py-1.5 rounded-lg flex items-center border border-primary-green/50 shadow-sm hover:shadow-md transform hover:scale-105 transition-all duration-300 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30 disabled:opacity-50 disabled:transform-none group/btn">
+            <span class="absolute inset-0 w-0 bg-red-500/10 transition-all duration-500 group-hover/btn:w-full"></span>
+            <svg *ngIf="isRemovingFromShortlist(playerId.toString())" class="animate-spin h-4 w-4 mr-1" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+              <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+            </svg>
+            <svg *ngIf="!isRemovingFromShortlist(playerId.toString())" xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
+            </svg>
+            <span class="text-xs relative z-10">Shortlisted</span>
+          </button>
+
+          <!-- Invite Button - Always clickable -->
+          <button (click)="onInviteToTryout(playerId)"
+                  class="tilt-card bg-black/40 text-blue-400 px-3 py-1.5 rounded-lg transition-all duration-300 flex items-center border border-blue-500/20 hover:border-blue-500/40 shadow-sm hover:shadow-md transform hover:scale-105 group/btn">
+            <span class="absolute inset-0 w-0 bg-blue-500/10 transition-all duration-500 group-hover/btn:w-full"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+            </svg>
+            <span class="text-xs relative z-10">Invite</span>
+          </button>
+
+          <!-- Action Message -->
+          <div *ngIf="getActionMessage(playerId)"
+               [ngClass]="getActionMessage(playerId)?.isError ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'"
+               class="text-xs px-3 py-1.5 rounded-lg border animate-pulse-glow">
+            {{ getActionMessage(playerId)?.message }}
+          </div>
+        </ng-container>
+      </div>
+
+      <!-- Post Date -->
+      <div class="text-secondary text-xs backdrop-blur-sm bg-black/50 px-4 py-2 rounded-full border border-primary-green/10 flex items-center transform hover:scale-105 transition-all duration-300 hover:border-primary-green/30 hover:bg-black/60 animate-pulse-glow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        {{ post.createdAt | dateFormat }}
+      </div>
+    </div>
+  </div>
+
+  <!-- Post Description - Moved before media content -->
+  <div class="px-6 pt-4 pb-2 glass-effect">
+    <!-- Normal Mode (View Description) -->
+    <div class="bg-black/40 p-4 rounded-lg backdrop-blur-sm border border-primary-green/10 hover:border-primary-green/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/5 transform hover:translate-y-[-2px]">
+      <div class="flex items-start">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 text-primary-green flex-shrink-0 mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z" />
+        </svg>
+        <p class="text-white">
+          {{ post.description || 'No description provided for this highlight.' }}
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Media Content -->
+  <div class="bg-black relative group/media overflow-hidden">
+    <!-- Overlay gradient at top and bottom for better text contrast -->
+    <div class="absolute top-0 left-0 w-full h-16 bg-gradient-to-b from-black/40 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-full h-16 bg-gradient-to-t from-black/40 to-transparent z-10 pointer-events-none"></div>
+
+    <!-- Animated decorative elements -->
+    <div class="absolute -right-16 -top-16 w-32 h-32 bg-primary-green/5 rounded-full blur-2xl group-hover/media:bg-primary-green/10 transition-all duration-700 opacity-0 group-hover/media:opacity-100"></div>
+    <div class="absolute -left-20 -bottom-20 w-40 h-40 bg-primary-green/5 rounded-full blur-2xl group-hover/media:bg-primary-green/10 transition-all duration-700 opacity-0 group-hover/media:opacity-100"></div>
+
+    <!-- Video Content -->
+    <div *ngIf="post.type === 'video'" class="relative">
+      <div class="w-full mx-auto" style="max-height: 550px;">
+        <app-video-player
+          [videoUrl]="post.url"
+          [muted]="false"
+          [autoplay]="false"
+          [id]="'video-' + post.id"
+          (error)="onMediaError($event, post.url)">
+        </app-video-player>
+      </div>
+    </div>
+
+    <!-- Image Content -->
+    <div *ngIf="post.type === 'image'" class="relative img-hover-zoom">
+      <img [src]="sanitizeUrl(post.url)" alt="Post Image" class="w-full mx-auto object-cover transition-transform duration-500 group-hover/media:scale-[1.02]" style="max-height: 550px;" (error)="onMediaError($event, post.url)" />
+    </div>
+
+    <!-- Error State -->
+    <div *ngIf="!post.type" class="glass-effect text-white text-center p-8 rounded-lg m-4">
+      <div class="p-4 bg-red-500/10 rounded-full w-20 h-20 mx-auto mb-4 flex items-center justify-center border border-red-500/20 animate-pulse-glow">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+      </div>
+      <h3 class="text-xl font-medium">Media type not specified</h3>
+      <p class="text-secondary text-sm mt-2">Unable to load content</p>
+    </div>
+  </div>
+
+  <!-- Post Actions -->
+  <div class="p-6 glass-effect">
+    <!-- Likes Section -->
+    <div class="flex items-center gap-4 mb-5">
+      <button
+        (click)="onLikeClicked(post.id)"
+        class="transition-all duration-300 relative transform hover:scale-110 active:scale-90 group/like"
+        [disabled]="likes && likes.loading || userRole === 'admin'"
+      >
+        <!-- Ripple effect on click -->
+        <span class="absolute inset-0 rounded-full bg-red-500/0 group-active/like:bg-red-500/20 transform scale-0 group-active/like:scale-100 transition-all duration-500"></span>
+        <!-- Subtle glow effect on hover -->
+        <div class="absolute inset-0 rounded-full bg-red-500/0 group-hover/like:bg-red-500/10 blur-md -z-10 opacity-0 group-hover/like:opacity-100 transition-opacity duration-300"></div>
+
+        <svg class="w-9 h-9 relative z-10"
+          [ngClass]="{
+            'text-red-500 fill-current': likes && likes.likedByUser,
+            'text-gray-400': !likes || !likes.likedByUser,
+            'opacity-50': userRole === 'admin'
+          }"
+          [attr.fill]="likes && likes.likedByUser ? 'currentColor' : 'none'"
+          stroke="currentColor"
+          viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+        </svg>
+        <span *ngIf="likes && likes.loading"
+          class="absolute -top-1 -right-1 w-5 h-5 flex items-center justify-center">
+          <svg class="animate-spin h-5 w-5 text-red-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </span>
+      </button>
+      <span class="text-white font-medium text-lg flex items-center">
+        <span class="bg-gradient-to-r from-red-500/20 to-transparent px-4 py-1.5 rounded-full border border-red-500/10 hover:border-red-500/20 transition-all duration-300 hover:shadow-md hover:shadow-red-500/5 transform hover:scale-105">
+          {{ likes ? (likes.likeCount || 0) : 0 }} Likes
+        </span>
+      </span>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="mt-6">
+      <h4 class="text-white font-medium mb-4 flex items-center bg-gradient-to-r from-primary-green/20 to-transparent px-4 py-2 rounded-lg shadow-sm hover:shadow-md hover:shadow-primary-green/5 transition-all duration-300 transform hover:translate-x-1 group/comments">
+        <div class="p-2 bg-primary-green/10 rounded-full mr-2 shadow-inner group-hover/comments:bg-primary-green/20 transition-all duration-300 transform group-hover/comments:rotate-6">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </div>
+        <span class="relative">
+          Comments ({{ comments ? comments.length : 0 }})
+          <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-green/50 to-transparent group-hover/comments:w-full transition-all duration-500"></span>
+        </span>
+      </h4>
+
+      <!-- Comments List -->
+      <div *ngIf="comments && comments.length" class="space-y-3 mb-5 max-h-60 overflow-y-auto custom-scrollbar pr-2">
+        <div *ngFor="let comment of comments; let i = index"
+          class="flex items-start gap-3 glass-effect p-4 rounded-lg backdrop-blur-sm hover:shadow-lg hover:shadow-primary-green/5 transition-all duration-300 border border-primary-green/10 hover:border-primary-green/20 transform hover:translate-x-1 animate-on-scroll fade-left animate-visible" [style.animation-delay]="(0.1 * i) + 's'">
+
+          <!-- Animated decorative elements -->
+          <div class="absolute -right-5 -top-5 w-10 h-10 bg-primary-green/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+          <div class="absolute -left-5 -bottom-5 w-10 h-10 bg-primary-green/5 rounded-full blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700"></div>
+
+          <!-- Comment Profile Picture -->
+          <div class="flex-shrink-0 cursor-pointer glow-hover" (click)="onCommenterProfileClick(comment)">
+            <div class="relative">
+              <!-- Default profile image -->
+              <div class="w-10 h-10 rounded-full overflow-hidden border border-primary-green/50 shadow-md transition-all duration-300 transform hover:scale-110"
+                   [ngClass]="{'hover:border-white': !isCurrentUserComment(comment), 'hover:border-primary-green': isCurrentUserComment(comment)}">
+                <img src="profile.png" alt="Default Profile" class="w-full h-full object-cover" />
+              </div>
+              <!-- Subtle glow on hover -->
+              <div class="absolute inset-0 rounded-full bg-primary-green/0 hover:bg-primary-green/20 blur-md transition-all duration-500 -z-10"></div>
+            </div>
+          </div>
+
+          <div class="flex-1">
+            <div class="flex items-baseline justify-between">
+              <div>
+                <span class="font-semibold text-primary-green cursor-pointer hover:text-white transition-colors duration-300 relative group/name" (click)="onCommenterProfileClick(comment)">
+                  {{ comment.commenter_name || 'Anonymous' }}
+                  <span class="absolute -bottom-1 left-0 w-0 h-0.5 bg-gradient-to-r from-primary-green to-transparent group-hover/name:w-full transition-all duration-500"></span>
+                </span>
+                <span class="ml-2 text-secondary text-xs bg-black/30 px-2 py-0.5 rounded-full border border-primary-green/10 hover:border-primary-green/20 transition-all duration-300 transform hover:scale-105">{{ comment.created_at | dateFormat }}</span>
+              </div>
+
+              <!-- Delete button - only visible for comments by the current user or admin -->
+              <button *ngIf="isCurrentUserComment(comment)"
+                (click)="onCommentDelete(post.id, comment.id)"
+                class="text-red-400 hover:text-red-500 transition-all duration-300 flex items-center hover:bg-black/30 p-1.5 rounded-full transform hover:rotate-12 hover:scale-110 group/delete"
+                [disabled]="isDeletingComment[comment.id]">
+                <!-- Subtle glow effect on hover -->
+                <span class="absolute inset-0 rounded-full bg-red-500/0 group-hover/delete:bg-red-500/10 blur-md -z-10 opacity-0 group-hover/delete:opacity-100 transition-opacity duration-300"></span>
+                <span *ngIf="isDeletingComment[comment.id]" class="mr-1 w-4 h-4">
+                  <svg class="animate-spin" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                </span>
+                <svg *ngIf="!isDeletingComment[comment.id]" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+                
+                <!-- Admin badge when deleting as admin -->
+                <span *ngIf="userRole === 'admin' && comment.player_id?.toString() !== currentUserId" 
+                     class="ml-1 bg-red-500/20 text-red-400 px-1 py-0.5 rounded-full text-xs">
+                  Admin
+                </span>
+              </button>
+            </div>
+            <p class="text-white text-sm mt-2">{{ comment.text }}</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- No Comments State -->
+      <div *ngIf="!comments || !comments.length" class="glass-effect p-6 rounded-lg text-center mb-5 border border-primary-green/10 hover:border-primary-green/20 transition-all duration-300 hover:shadow-lg hover:shadow-primary-green/5 animate-on-scroll fade-up animate-visible">
+        <div class="p-4 bg-primary-green/10 rounded-full w-16 h-16 mx-auto mb-4 flex items-center justify-center border border-primary-green/20 animate-float-slow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+          </svg>
+        </div>
+        <h3 class="text-white font-medium mb-2">No comments yet</h3>
+        <p class="text-secondary text-sm">Be the first to share your thoughts!</p>
+      </div>
+
+      <!-- Comment Input (Only for Players) -->
+      <div class="flex items-center gap-3 mt-5 animate-on-scroll fade-up animate-visible" *ngIf="userRole === 'player'" style="animation-delay: 0.2s;">
+        <!-- Current User Profile Image in Comment Box -->
+        <div *ngIf="currentUserProfileImage; else defaultCommentUserImage"
+             class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-green/50 flex-shrink-0 shadow-md cursor-pointer hover:border-white transition-all duration-300 transform hover:scale-110 glow-hover"
+             (click)="onGoToProfile(+currentUserId)">
+          <img [src]="currentUserProfileImage" alt="Your Profile" class="w-full h-full object-cover" onerror="this.src='profile.png'" />
+        </div>
+        <ng-template #defaultCommentUserImage>
+          <div class="w-10 h-10 rounded-full overflow-hidden border-2 border-primary-green/50 flex-shrink-0 shadow-md cursor-pointer hover:border-white transition-all duration-300 transform hover:scale-110 glow-hover"
+               (click)="onGoToProfile(+currentUserId)">
+            <img src="profile.png" alt="Default Profile" class="w-full h-full object-cover" />
+          </div>
+        </ng-template>
+
+        <div class="flex-1 flex items-center gap-2 glass-effect rounded-lg p-1 pl-4 focus-within:ring-2 focus-within:ring-primary-green/50 border border-primary-green/20 focus-within:border-primary-green/40 transition-all duration-300 shadow-inner group/input">
+          <!-- Animated focus indicator -->
+          <div class="absolute bottom-0 left-0 w-0 h-0.5 bg-primary-green group-focus-within/input:w-full transition-all duration-700"></div>
+
+          <input type="text" [(ngModel)]="newComment" (keyup.enter)="onCommentSubmit(post.id)"
+            placeholder="Add a comment..." class="bg-transparent border-none outline-none w-full text-white" />
+          <button (click)="onCommentSubmit(post.id)"
+            class="btn-primary px-4 py-2 rounded-lg flex-shrink-0 flex items-center disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 active:scale-95 group/btn relative overflow-hidden"
+            [disabled]="!newComment || !newComment.trim()">
+            <!-- Ripple effect -->
+            <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover/btn:w-full transform skew-x-12"></span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

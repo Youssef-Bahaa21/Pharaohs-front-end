@@ -1,0 +1,121 @@
+/* Custom Styles for Notification List */
+.notification-list {
+    border-color: rgba(59, 127, 88, 0.1);
+    border-style: solid;
+    border-width: 0;
+    border-top-width: 1px;
+    border-bottom-width: 1px;
+}
+
+.notification-item {
+    display: flex;
+    align-items: center;
+    padding: 1rem;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.4);
+    }
+
+    &.unread {
+        background-color: rgba(59, 127, 88, 0.1);
+    }
+}
+
+.notification-icon {
+    margin-right: 1rem;
+    flex-shrink: 0;
+}
+
+.icon-wrapper {
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(59, 127, 88, 0.3);
+
+    mat-icon {
+        color: #3B7F58;
+    }
+}
+
+.notification-content {
+    flex: 1;
+}
+
+.notification-message {
+    color: white;
+    margin-bottom: 0.25rem;
+}
+
+.notification-time {
+    font-size: 0.75rem;
+    color: #9CA3AF;
+}
+
+.notification-actions {
+    flex-shrink: 0;
+    margin-left: 1rem;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.notification-item:hover .notification-actions {
+    opacity: 1;
+}
+
+.delete-button {
+    padding: 0.5rem;
+    border-radius: 9999px;
+    transition: background-color 0.3s;
+
+    &:hover {
+        background-color: rgba(239, 68, 68, 0.2);
+    }
+
+    mat-icon {
+        color: #F87171;
+        transition: color 0.3s;
+    }
+
+    &:hover mat-icon {
+        color: #FCA5A5;
+    }
+}
+
+.unread-indicator {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 0.25rem;
+    background-color: #3B7F58;
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+
+.custom-paginator {
+    background-color: transparent;
+    color: white;
+
+    ::ng-deep .mat-mdc-paginator-container {
+        color: white;
+    }
+
+    ::ng-deep .mat-mdc-icon-button {
+        color: #3B7F58;
+    }
+
+    ::ng-deep .mat-mdc-select-value-text {
+        color: white;
+    }
+}
+
+.pagination-container {
+    padding: 0.5rem;
+    border-top: 1px solid rgba(59, 127, 88, 0.1);
+}

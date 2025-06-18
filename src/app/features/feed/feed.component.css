@@ -1,0 +1,442 @@
+/* Modern animations */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse-glow {
+  0% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4); }
+  70% { box-shadow: 0 0 0 15px rgba(0, 200, 83, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 200, 83, 0); }
+}
+
+@keyframes shine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes highlightText {
+  0% { text-shadow: 0 0 0px rgba(0, 200, 83, 0.3); }
+  50% { text-shadow: 0 0 15px rgba(0, 200, 83, 0.6); }
+  100% { text-shadow: 0 0 0px rgba(0, 200, 83, 0.3); }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 200, 83, 0.4);
+  }
+  70% {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 10px rgba(0, 200, 83, 0);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 0 0 0 rgba(0, 200, 83, 0);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(20);
+    opacity: 0;
+  }
+}
+
+@keyframes heartBeat {
+  0% {
+    transform: scale(1);
+  }
+  14% {
+    transform: scale(1.3);
+  }
+  28% {
+    transform: scale(1);
+  }
+  42% {
+    transform: scale(1.3);
+  }
+  70% {
+    transform: scale(1);
+  }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Custom class utilities */
+.animate-float-slow {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+.animate-shine {
+  animation: shine 3s infinite;
+}
+
+.animate-highlightText {
+  animation: highlightText 3s infinite;
+}
+
+.animate-bounce-slow {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Apply animations */
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+.animate-slideUp {
+  animation: slideUp 0.5s ease-out forwards;
+}
+
+.animate-pulse-custom {
+  animation: pulse 2s infinite;
+}
+
+.animate-shimmer {
+  animation: shimmer 1.5s infinite;
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+.animate-heartBeat {
+  animation: heartBeat 1.3s ease-in-out;
+}
+
+.animate-bounce-custom {
+  animation: bounce 2s ease infinite;
+}
+
+/* Scroll-triggered animations */
+.animate-on-scroll {
+  opacity: 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.fade-up {
+  transform: translateY(30px);
+}
+
+.animate-on-scroll.fade-left {
+  transform: translateX(-30px);
+}
+
+.animate-on-scroll.fade-right {
+  transform: translateX(30px);
+}
+
+.animate-visible {
+  opacity: 1 !important;
+  transform: translate(0, 0) !important;
+}
+
+/* Shimmer effect for loading states */
+.shimmer {
+  background: linear-gradient(90deg,
+    rgba(0, 200, 83, 0.1) 25%,
+    rgba(0, 200, 83, 0.2) 50%,
+    rgba(0, 200, 83, 0.1) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* Hover effects */
+.hover-scale {
+  transition: transform 0.3s ease;
+}
+
+.hover-scale:hover {
+  transform: scale(1.03);
+}
+
+.hover-glow {
+  transition: box-shadow 0.3s ease;
+}
+
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+}
+
+/* Card styles */
+.card {
+  transition: all 0.3s ease;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Button effects */
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  background-color: var(--primary-green);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: rgba(0, 200, 83, 0.9);
+  box-shadow: 0 0 15px rgba(0, 200, 83, 0.3);
+  transform: translateY(-3px);
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 5px;
+  height: 5px;
+  background: rgba(255, 255, 255, 0.5);
+  opacity: 0;
+  border-radius: 100%;
+  transform: scale(1, 1) translate(-50%);
+  transform-origin: 50% 50%;
+}
+
+.btn-primary:focus:not(:active)::after {
+  animation: ripple 1s ease-out;
+}
+
+.btn-secondary {
+  background-color: transparent;
+  border: 1px solid rgba(0, 200, 83, 0.6);
+  border-radius: 0.5rem;
+  font-weight: 600;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+  background-color: rgba(0, 200, 83, 0.1);
+  border-color: rgba(0, 200, 83, 1);
+  box-shadow: 0 10px 15px -3px rgba(0, 200, 83, 0.1), 0 4px 6px -2px rgba(0, 200, 83, 0.05);
+  transform: translateY(-3px);
+}
+
+/* Grid pattern background */
+.bg-grid-pattern {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+/* Gradient text effect */
+.gradient-text {
+  background: linear-gradient(90deg, #00c853, #64dd17);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Social media style pill labels */
+.pill-label {
+  background-color: rgba(0, 200, 83, 0.2);
+  padding: 0 0.75rem;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+  border-radius: 9999px;
+  color: white;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(0, 200, 83, 0.2);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 300ms;
+}
+
+/* Image hover effect for social media feel */
+.img-hover-zoom {
+  overflow: hidden;
+}
+
+.img-hover-zoom img {
+  transition: transform 0.5s ease;
+}
+
+.img-hover-zoom:hover img {
+  transform: scale(1.05);
+}
+
+/* 3D Tilt Effect */
+.tilt-card {
+  transition: transform 0.5s ease;
+  transform-style: preserve-3d;
+}
+
+.tilt-card:hover {
+  transform: perspective(1000px) rotateX(2deg) rotateY(2deg);
+}
+
+/* Glass morphism effect */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  background: rgba(34, 34, 34, 0.6);
+  border: 1px solid rgba(0, 200, 83, 0.2);
+}
+
+/* Glowing effect */
+.glow-hover {
+  position: relative;
+}
+
+.glow-hover::after {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: -10px;
+  bottom: -10px;
+  background: radial-gradient(circle, rgba(0, 200, 83, 0.4) 0%, rgba(0, 200, 83, 0) 70%);
+  border-radius: inherit;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.glow-hover:hover::after {
+  opacity: 1;
+}
+
+/* Smooth transitions for UI elements */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+/* Like button animation */
+.like-button:active svg {
+  animation: heartBeat 1.3s ease-in-out;
+}
+
+/* Custom scrollbar for webkit browsers */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 83, 0.3);
+  border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 200, 83, 0.5);
+}
+
+/* Firefox scrollbar */
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 200, 83, 0.3) rgba(0, 0, 0, 0.2);
+}
+
+/* Custom scrollbar for the whole page */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 200, 83, 0.5);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 200, 83, 0.7);
+}

@@ -1,0 +1,229 @@
+<div class="min-h-screen bg-primary-dark text-white relative overflow-hidden">
+  <!-- Background elements -->
+  <div class="absolute inset-0 bg-gradient-to-b from-primary-dark via-primary-dark/95 to-black/95 z-0"></div>
+  <div class="absolute inset-0 bg-grid-pattern opacity-5 z-0"></div>
+  <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow"></div>
+  <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+  <div class="absolute inset-0 z-0 overflow-hidden">
+    <div class="absolute w-4 h-4 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 15%; left: 10%; animation-duration: 8s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 30%; left: 20%; animation-duration: 9s; animation-delay: 1s;"></div>
+    <div class="absolute w-5 h-5 rounded-full bg-primary-green/30 blur-sm animate-float-slow" style="top: 70%; left: 80%; animation-duration: 10s; animation-delay: 0.5s;"></div>
+    <div class="absolute w-2 h-2 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 60%; left: 40%; animation-duration: 7s; animation-delay: 2s;"></div>
+    <div class="absolute w-6 h-6 rounded-full bg-primary-green/10 blur-sm animate-float-slow" style="top: 20%; left: 85%; animation-duration: 12s; animation-delay: 1.5s;"></div>
+    <div class="absolute w-3 h-3 rounded-full bg-primary-green/25 blur-sm animate-float-slow" style="top: 40%; left: 70%; animation-duration: 11s; animation-delay: 0.7s;"></div>
+    <div class="absolute w-5 h-5 rounded-full bg-primary-green/15 blur-sm animate-float-slow" style="top: 80%; left: 30%; animation-duration: 9s; animation-delay: 1.2s;"></div>
+    <div class="absolute w-4 h-4 rounded-full bg-primary-green/20 blur-sm animate-float-slow" style="top: 25%; left: 50%; animation-duration: 10s; animation-delay: 2.5s;"></div>
+  </div>
+
+  <div class="max-w-5xl mx-auto p-4 md:p-6 relative z-10">
+    <!-- Header -->
+    <div class="mb-8 animate-on-scroll fade-up animate-visible">
+      <app-feature-header title="Player Feed" icon="feed"></app-feature-header>
+      <!-- Admin Badge -->
+      <div *ngIf="userRole === 'admin'" class="mt-2 flex justify-center items-center">
+        <div class="bg-red-500/20 text-red-400 px-4 py-2 rounded-full text-sm font-medium border border-red-500/30 flex items-center gap-2 animate-pulse-glow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" />
+          </svg>
+          Admin Mode - You can delete any post or comment
+        </div>
+      </div>
+    </div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="loading" class="flex flex-col justify-center items-center py-12 animate-fadeIn">
+      <div class="relative w-20 h-20 mb-5 animate-pulse-glow">
+        <div class="absolute inset-0 rounded-full border-t-2 border-b-2 border-primary-green animate-spin"></div>
+        <div class="absolute inset-0 rounded-full border-r-2 border-l-2 border-primary-green/50 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+        <div class="absolute inset-0 rounded-full border-t-2 border-primary-green/30 animate-ping"></div>
+      </div>
+      <p class="text-primary-green text-lg animate-pulse">Loading amazing content...</p>
+    </div>
+
+    <!-- Filter Component -->
+    <app-filter
+      [(searchQuery)]="searchQuery"
+      [(filterClub)]="filterClub"
+      [(filterPosition)]="filterPosition"
+      [(filterRating)]="filterRating"
+      [positions]="positions"
+      [clubs]="clubs"
+      [isLoadingFilterOptions]="isLoadingFilterOptions"
+      [totalPlayers]="totalPlayers"
+      [totalVideos]="getAllVideos().length"
+      (applyFiltersEvent)="applyFilters()"
+      (resetFiltersEvent)="resetFilters()">
+    </app-filter>
+
+    <!-- Upload Button (Players Only) -->
+    <div class="relative overflow-hidden glass-effect p-6 sm:p-8 rounded-xl shadow-xl border border-primary-green/40 mb-8 hover:border-primary-green/60 transition-all duration-500 backdrop-blur-sm group animate-on-scroll fade-up animate-visible" *ngIf="userRole === 'player'" style="animation-delay: 0.3s;">
+      <div class="absolute inset-0 opacity-10 overflow-hidden">
+        <div class="absolute -right-16 -top-16 w-32 h-32 bg-primary-green/30 rounded-full blur-xl group-hover:bg-primary-green/40 transition-all duration-700"></div>
+        <div class="absolute -left-20 -bottom-20 w-40 h-40 bg-primary-green/20 rounded-full blur-xl group-hover:bg-primary-green/30 transition-all duration-700"></div>
+        <div class="absolute inset-0 bg-grid-pattern opacity-5 group-hover:opacity-10 transition-opacity duration-700"></div>
+      </div>
+
+      <svg class="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+        <path class="path-line" d="M0,50 C150,20 300,80 450,50 C600,20 750,70 900,40" fill="none" stroke="rgba(0, 200, 83, 0.1)" stroke-width="2" stroke-dasharray="10,10"></path>
+      </svg>
+
+      <div class="relative z-10 flex flex-col sm:flex-row items-center justify-between gap-6">
+        <div class="flex items-center gap-5">
+          <div class="relative glow-hover">
+            <div *ngIf="currentUserProfileImage; else defaultUserImage"
+                class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-primary-green shadow-lg transform group-hover:scale-105 transition-all duration-500 animate-pulse-glow">
+              <img [src]="currentUserProfileImage" alt="Profile Image" class="w-full h-full object-cover" onerror="this.src='profile.png'" />
+            </div>
+            <ng-template #defaultUserImage>
+              <div class="w-16 h-16 sm:w-20 sm:h-20 rounded-full overflow-hidden border-2 border-primary-green shadow-lg transform group-hover:scale-105 transition-all duration-500 animate-pulse-glow">
+                <img src="profile.png" alt="Default Profile" class="w-full h-full object-cover" />
+              </div>
+            </ng-template>
+            <div class="absolute inset-0 rounded-full bg-primary-green/0 group-hover:bg-primary-green/20 blur-md -z-10 transition-all duration-700 group-hover:scale-110"></div>
+          </div>
+
+          <div class="text-white">
+            <p class="font-semibold text-lg sm:text-xl relative inline-block">
+              Ready to showcase your skills?
+              <span class="absolute -bottom-1 left-0 w-full h-0.5 bg-gradient-to-r from-primary-green/50 to-transparent"></span>
+            </p>
+            <p class="text-secondary text-sm sm:text-base mt-2">Share your highlights with scouts and get noticed</p>
+          </div>
+        </div>
+
+        <button (click)="openUploadModal()" class="btn-primary py-3 px-6 rounded-lg flex items-center justify-center flex-shrink-0 w-full sm:w-auto transform hover:translate-y-[-2px] group-hover:scale-105 group/btn relative overflow-hidden">
+          <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover/btn:w-full transform skew-x-12"></span>
+          <span class="absolute right-0 w-8 h-full bg-white/10 transform -skew-x-12 translate-x-[-100%] group-hover/btn:translate-x-[200%] transition-transform duration-1000 ease-in-out"></span>
+
+          <div class="relative z-10 flex items-center">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+            </svg>
+            <span>Upload Highlight</span>
+          </div>
+        </button>
+      </div>
+    </div>
+
+    <!-- Feed Posts -->
+    <div *ngIf="!loading && getAllVideos().length > 0; else noContent" class="space-y-8" (window:scroll)="onScroll()">
+      <app-player-card 
+        *ngFor="let post of displayedVideos; let i = index"
+        [style.animation-delay]="(0.1 * i) + 's'"
+        [post]="post"
+        [player]="getPlayerById(post.playerId)"
+        [userRole]="userRole"
+        [currentUserId]="currentUserId"
+        [currentUserProfileImage]="currentUserProfileImage"
+        [comments]="comments[post.id]"
+        [likes]="likes[post.id]"
+        [newComment]="newComments[post.id]"
+        [isDeletingComment]="isDeletingComment"
+        [isDeletingPost]="isDeletingPost"
+        [shortlistedPlayers]="shortlistedPlayers"
+        [invitedPlayers]="invitedPlayers"
+        [addingToShortlist]="addingToShortlist"
+        [removingFromShortlist]="removingFromShortlist" 
+        [actionMessages]="actionMessages"
+        (goToProfile)="goToPlayerProfile($event)"
+        (likeClicked)="toggleLike($event)"
+        (commentSubmit)="postComment($event)"
+        (commentDelete)="deleteComment($event.videoId, $event.commentId)"
+        (openUpdate)="openUpdateModal($event)"
+        (deletePostEvent)="deletePost($event)"
+        (shortlistAdd)="addToShortlist($event)"
+        (shortlistRemove)="removeFromShortlist($event)"
+        (inviteToTryout)="inviteToTryout($event)"
+        (mediaError)="onMediaError($event.event, $event.url)"
+        (commentProfileClick)="goToCommenterProfile($event)">
+      </app-player-card>
+    </div>
+
+    <ng-template #noContent>
+      <div *ngIf="!loading" class="text-center py-16 glass-effect rounded-xl shadow-xl border border-primary-green/30 backdrop-blur-sm animate-on-scroll fade-up animate-visible">
+        <div class="absolute -right-32 -top-32 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow"></div>
+        <div class="absolute -left-32 bottom-0 w-96 h-96 bg-primary-green/10 rounded-full blur-[100px] animate-float-slow" style="animation-delay: 2s;"></div>
+
+        <div class="p-6 bg-primary-green/10 w-28 h-28 rounded-full flex items-center justify-center mx-auto mb-8 border border-primary-green/20 shadow-lg animate-float-slow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+          </svg>
+        </div>
+        <h3 class="text-2xl font-bold text-white mb-3 gradient-text">No Content Found</h3>
+        <p class="text-secondary mb-8 max-w-md mx-auto">No content found matching your current filter criteria. Try adjusting your filters or check back later for new content.</p>
+        <button (click)="resetFilters()" class="btn-primary px-8 py-3 rounded-lg flex items-center justify-center mx-auto transform hover:scale-105 group/btn relative overflow-hidden">
+          <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover/btn:w-full transform skew-x-12"></span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          <span class="relative z-10">Reset Filters</span>
+        </button>
+      </div>
+    </ng-template>
+
+    <!-- Infinite Scroll Loading -->
+    <div *ngIf="!loading && hasMoreVideos" class="flex justify-center items-center my-8 animate-on-scroll fade-up animate-visible">
+      <div *ngIf="isLoadingMore" class="flex flex-col items-center">
+        <div class="relative w-16 h-16 mb-3 animate-pulse-glow">
+          <div class="absolute inset-0 rounded-full border-t-2 border-b-2 border-primary-green animate-spin"></div>
+          <div class="absolute inset-0 rounded-full border-r-2 border-l-2 border-primary-green/50 animate-spin" style="animation-direction: reverse; animation-duration: 1.5s;"></div>
+          <div class="absolute inset-0 rounded-full border-t-2 border-primary-green/30 animate-ping"></div>
+        </div>
+        <p class="text-primary-green text-sm animate-pulse">Loading more amazing content...</p>
+      </div>
+      <button
+        *ngIf="!isLoadingMore"
+        (click)="loadMoreVideos()"
+        class="btn-primary px-6 py-3 rounded-lg flex items-center transform hover:scale-105 group/btn relative overflow-hidden">
+        <span class="absolute inset-0 w-0 bg-white/10 transition-all duration-500 group-hover/btn:w-full transform skew-x-12"></span>
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2 relative z-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+        <span class="relative z-10">Load More</span>
+      </button>
+    </div>
+
+    <!-- End of Content Message -->
+    <div *ngIf="!loading && !hasMoreVideos && displayedVideos.length > 0" class="text-center my-8 py-6 glass-effect rounded-lg border border-primary-green/20 backdrop-blur-sm animate-on-scroll fade-up animate-visible">
+      <div class="flex flex-col items-center justify-center">
+        <div class="p-3 bg-primary-green/10 rounded-full mb-3 flex items-center justify-center border border-primary-green/20 animate-pulse-glow">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-primary-green" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+          </svg>
+        </div>
+        <p class="text-white font-medium">You've reached the end of the feed</p>
+        <p class="text-secondary text-sm mt-1">Check back later for new content</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal Component -->
+  <app-modal
+    [show]="showModal"
+    [title]="modalTitle"
+    [modalType]="modalType"
+    [fileType]="modalType === 'upload' ? uploadType : updateType"
+    [selectedFile]="modalType === 'upload' ? selectedFile : updateFile"
+    [description]="modalType === 'upload' ? uploadDescription : updateDescription"
+    [progress]="modalType === 'upload' ? uploadProgress : updateProgress"
+    [error]="modalType === 'upload' ? uploadError : updateError"
+    [isProcessing]="modalType === 'upload' ? isUploading : isUpdating"
+    [postBeingUpdated]="postBeingUpdated"
+    [tryouts]="tryouts"
+    [selectedTryoutId]="selectedTryoutId"
+    [isLoadingTryouts]="isLoadingTryouts"
+    [currentInvitingPlayerId]="currentInvitingPlayerId"
+    [invitedPlayers]="invitedPlayers"
+    [isInvitedToTryout]="isInvitedToTryout.bind(this)"
+    (close)="closeModal()"
+    (fileSelected)="onFileSelected($event)"
+    (fileRemoved)="removeSelectedFile($event)"
+    (submit)="handleModalSubmit($event)"
+    (fileTypeChange)="onFileTypeChange($event)"
+    (descriptionChange)="onDescriptionChange($event)"
+    (selectedTryoutIdChange)="selectedTryoutId = $event"
+    (confirmTryout)="confirmInvite()"
+    (navigateToTryouts)="router.navigate(['/scout/tryout']); closeModal()">
+  </app-modal>
+</div>

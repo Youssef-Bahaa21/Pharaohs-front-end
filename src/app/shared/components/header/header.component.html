@@ -1,0 +1,212 @@
+<header class="bg-gradient-to-r from-primary-dark to-primary-dark/90 text-white shadow-lg sticky top-0 z-50 transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6">
+    <!-- Desktop Header -->
+    <div class="flex justify-between items-center h-16">
+      <!-- Logo -->
+      <a routerLink="/" class="flex items-center space-x-2 group">
+        <span class="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-primary-green to-primary-green/80 transition-all duration-300">Pharaoh's Path</span>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center space-x-1">
+        <a routerLink="/" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Home</a>
+
+        <!-- Show only when user is logged in -->
+        <ng-container *ngIf="isLoggedIn">
+          <a routerLink="/dashboard" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Dashboard</a>
+          <a routerLink="/feed" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Timeline</a>
+
+          <!-- Player-specific links -->
+          <ng-container *ngIf="userRole === 'player'">
+            <a routerLink="/profile" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Profile</a>
+            <a routerLink="/invitations" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Invitations</a>
+          </ng-container>
+
+          <!-- Scout-specific links -->
+          <ng-container *ngIf="userRole === 'scout'">
+            <a routerLink="/scout/search" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Search</a>
+            <a routerLink="/scout/tryout" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Tryouts</a>
+            <a routerLink="/scout/invitations" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Invitations</a>
+            <a routerLink="/scout/shortlist" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Shortlist</a>
+          </ng-container>
+
+          <!-- Admin-specific links -->
+          <ng-container *ngIf="userRole === 'admin'">
+            <a routerLink="/admin/users" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Users</a>
+            <a routerLink="/admin/media" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Media</a>
+            <a routerLink="/admin/logs" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Logs</a>
+          </ng-container>
+        </ng-container>
+
+        <!-- Show only when user is not logged in -->
+        <ng-container *ngIf="!isLoggedIn">
+          <a routerLink="/login" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Login</a>
+          <a routerLink="/register" class="px-3 py-2 rounded-md text-sm font-medium hover:bg-primary-dark/30 transition-all duration-200">Register</a>
+        </ng-container>
+      </nav>
+
+      <!-- Right side actions -->
+      <div class="flex items-center space-x-3">
+        <!-- Notification Bell for desktop -->
+        <div *ngIf="isLoggedIn" class="hidden md:block">
+          <app-notification-bell></app-notification-bell>
+        </div>
+
+        <!-- User Profile -->
+        <div *ngIf="isLoggedIn && userName" class="hidden md:flex items-center">
+          <div
+            (click)="navigateToUserProfile()"
+            class="flex items-center space-x-2 px-3 py-2 rounded-md cursor-pointer hover:bg-primary-dark/30 transition-all duration-200">
+            <div class="relative">
+              <!-- For scouts, handle the profile image differently -->
+              <ng-container *ngIf="userRole === 'scout'">
+                <img 
+                  [src]="userProfileImage || '/profile2.png'" 
+                  alt="Scout Profile" 
+                  class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-green/50"
+                  onerror="this.src='/profile2.png'">
+              </ng-container>
+              
+              <!-- For other user types -->
+              <ng-container *ngIf="userRole !== 'scout'">
+                <img *ngIf="userProfileImage"
+                  [src]="userProfileImage"
+                  alt="Profile"
+                  class="w-8 h-8 rounded-full object-cover ring-2 ring-primary-green/50">
+                <div *ngIf="!userProfileImage"
+                  class="w-8 h-8 rounded-full overflow-hidden ring-2 ring-primary-green/50">
+                  <img src="/profile.png" alt="Default Profile" class="w-full h-full object-cover">
+                </div>
+              </ng-container>
+              
+              <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-primary-dark"></div>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-sm font-medium text-primary-green">{{ userName }}</span>
+              <span class="text-xs text-gray-300 capitalize">{{ userRole }}</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Logout Button for Desktop (separate container) -->
+        <div *ngIf="isLoggedIn" class="hidden md:block">
+          <a href="javascript:void(0)" (click)="logout()"
+            class="flex items-center px-3 py-2 rounded-md text-sm font-medium text-red-400 hover:bg-primary-dark/30 transition-all duration-200">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+            </svg>
+            Logout
+          </a>
+        </div>
+
+        <!-- Mobile menu button -->
+        <button
+          class="md:hidden inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-primary-dark/30 focus:outline-none transition-colors duration-200"
+          (click)="toggleMobileMenu()"
+          aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" *ngIf="!isMobileMenuOpen">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" *ngIf="isMobileMenuOpen">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Menu -->
+  <div
+    class="md:hidden transition-all duration-300 ease-in-out overflow-hidden"
+    [class.max-h-0]="!isMobileMenuOpen"
+    [class.max-h-screen]="isMobileMenuOpen"
+    [class.opacity-0]="!isMobileMenuOpen"
+    [class.opacity-100]="isMobileMenuOpen">
+    <div class="px-4 py-3 space-y-1 border-t border-primary-dark/40">
+      <!-- User Profile in Mobile Menu -->
+      <div *ngIf="isLoggedIn && userName"
+          (click)="navigateToUserProfile()"
+          class="flex items-center p-3 rounded-md bg-primary-dark/30 cursor-pointer">
+        <div class="relative mr-3">
+          <!-- For scouts, handle the profile image differently -->
+          <ng-container *ngIf="userRole === 'scout'">
+            <img 
+              [src]="userProfileImage || '/profile2.png'" 
+              alt="Scout Profile" 
+              class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-green/50"
+              onerror="this.src='/profile2.png'">
+          </ng-container>
+          
+          <!-- For other user types -->
+          <ng-container *ngIf="userRole !== 'scout'">
+            <img *ngIf="userProfileImage"
+              [src]="userProfileImage"
+              alt="Profile"
+              class="w-10 h-10 rounded-full object-cover ring-2 ring-primary-green/50">
+            <div *ngIf="!userProfileImage"
+              class="w-10 h-10 rounded-full overflow-hidden ring-2 ring-primary-green/50">
+              <img src="/profile.png" alt="Default Profile" class="w-full h-full object-cover">
+            </div>
+          </ng-container>
+          
+          <div class="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-primary-dark"></div>
+        </div>
+        <div>
+          <div class="font-medium text-primary-green">{{ userName }}</div>
+          <div class="text-xs text-gray-300 capitalize">{{ userRole }}</div>
+        </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <a routerLink="/" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Home</a>
+
+      <ng-container *ngIf="isLoggedIn">
+        <a routerLink="/dashboard" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Dashboard</a>
+        <a routerLink="/feed" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Timeline</a>
+
+        <!-- Player-specific links -->
+        <ng-container *ngIf="userRole === 'player'">
+          <a routerLink="/profile" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Profile</a>
+          <a routerLink="/invitations" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Invitations</a>
+        </ng-container>
+
+        <!-- Scout-specific links -->
+        <ng-container *ngIf="userRole === 'scout'">
+          <a routerLink="/scout/profile" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Profile</a>
+          <a routerLink="/scout/search" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Search</a>
+          <a routerLink="/scout/tryout" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Tryouts</a>
+          <a routerLink="/scout/invitations" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Invitations</a>
+          <a routerLink="/scout/shortlist" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Shortlist</a>
+        </ng-container>
+
+        <!-- Admin-specific links -->
+        <ng-container *ngIf="userRole === 'admin'">
+          <a routerLink="/admin/users" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Users</a>
+          <a routerLink="/admin/media" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Media</a>
+          <a routerLink="/admin/logs" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Logs</a>
+        </ng-container>
+
+        <!-- Notifications in Mobile Menu -->
+        <div class="flex items-center px-3 py-2 rounded-md hover:bg-primary-dark/30 transition-all duration-200">
+          <app-notification-bell></app-notification-bell>
+          <span class="ml-2">Notifications</span>
+        </div>
+
+        <!-- Logout Button -->
+        <a href="javascript:void(0)" (click)="logout(); closeMobileMenu()"
+           class="flex items-center px-3 py-2 rounded-md font-medium text-red-400 hover:bg-primary-dark/30 transition-all duration-200">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+          Logout
+        </a>
+      </ng-container>
+
+      <!-- Show only when user is not logged in -->
+      <ng-container *ngIf="!isLoggedIn">
+        <a routerLink="/login" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Login</a>
+        <a routerLink="/register" class="block px-3 py-2 rounded-md font-medium hover:bg-primary-dark/30 transition-all duration-200" (click)="closeMobileMenu()">Register</a>
+      </ng-container>
+    </div>
+  </div>
+</header>

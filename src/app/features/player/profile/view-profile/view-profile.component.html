@@ -1,0 +1,390 @@
+<div class="min-h-screen bg-primary-dark p-4">
+  <div class="max-w-6xl mx-auto">
+    <app-feature-header title="Player Profile" icon="profile"></app-feature-header>
+
+    <!-- Loading Indicator -->
+    <ng-container *ngIf="isLoading">
+      <app-profile-skeleton></app-profile-skeleton>
+    </ng-container>
+
+    <!-- Main Profile Content -->
+    <div *ngIf="player && !isLoading; else noProfile">
+      <!-- Hero Section -->
+      <div class="card-dark p-6 rounded-lg shadow-lg border border-primary-green/20 mb-6">
+        <div class="flex flex-col md:flex-row items-center md:items-start gap-6">
+          <!-- Profile Image -->
+          <div class="relative">
+            <div *ngIf="player.profileImage; else fallbackImage"
+                class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary-green shadow-lg cursor-pointer group relative"
+                (click)="openProfileImageModal(player.profileImage)">
+              <img
+                [appLazyLoad]="player.profileImage"
+                [placeholderSrc]="'assets/images/placeholder.svg'"
+                [errorSrc]="'profile.png'"
+                [width]="160"
+                [height]="160"
+                [quality]="90"
+                [format]="'webp'"
+                alt="Profile Image"
+                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+              <!-- Zoom indicator overlay -->
+              <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                </svg>
+              </div>
+            </div>
+            <ng-template #fallbackImage>
+              <div class="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden border-4 border-primary-green shadow-lg cursor-pointer group relative"
+                   (click)="openProfileImageModal('profile.png')">
+                <img
+                  src="profile.png"
+                  alt="Default Profile"
+                  class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110" />
+                <!-- Zoom indicator overlay -->
+                <div class="absolute inset-0 bg-black/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7" />
+                  </svg>
+                </div>
+              </div>
+            </ng-template>
+
+            <!-- Position Badge -->
+            <div class="absolute -bottom-2 -right-2 bg-primary-green text-white text-sm font-bold px-3 py-1 rounded-full shadow-lg">
+              {{ getPositionCategory() }}
+            </div>
+          </div>
+
+          <!-- Player Info -->
+          <div class="text-center md:text-left flex-1">
+            <h3 class="text-2xl md:text-4xl font-bold text-white mb-2">{{ player.name }}</h3>
+            <p class="text-secondary mb-1">{{ player.email }}</p>
+
+            <div class="flex flex-wrap gap-2 justify-center md:justify-start mt-3 mb-4">
+              <span *ngIf="player.age !== undefined" class="px-3 py-1 bg-input text-white rounded-full text-sm">
+                Age: {{ player.age }}
+              </span>
+              <span *ngIf="player.position" class="px-3 py-1 bg-primary-green/20 text-primary-green rounded-full text-sm">
+                {{ player.position }}
+              </span>
+              <span *ngIf="player.club" class="px-3 py-1 bg-primary-green/20 text-primary-green rounded-full text-sm">
+                {{ player.club }}
+              </span>
+            </div>
+
+            <!-- Efficiency Rating -->
+            <div class="mt-4">
+              <div class="flex items-center justify-center md:justify-start gap-2 mb-1">
+                <span class="text-white font-semibold">Player Efficiency Rating:</span>
+                <span [ngClass]="getRatingClass()" class="font-bold">{{ getRatingString() }}/5</span>
+              </div>
+              <div class="w-full bg-input rounded-full h-2.5">
+                <div class="bg-primary-green h-2.5 rounded-full"
+                     [style.width.%]="((calculateEfficiencyRating() - 1) / 4) * 100"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs Navigation -->
+      <div class="flex overflow-x-auto mb-6 bg-input rounded-lg p-1">
+        <button
+          *ngFor="let tab of ['overview', 'statistics', 'media']"
+          (click)="setActiveTab(tab)"
+          [class.bg-primary-green]="activeTab === tab"
+          [class.text-white]="activeTab === tab"
+          [class.bg-transparent]="activeTab !== tab"
+          [class.text-secondary]="activeTab !== tab"
+          class="px-4 py-2 rounded-md font-medium capitalize whitespace-nowrap transition-all duration-200 flex-1 text-center">
+          {{ tab }}
+        </button>
+      </div>
+
+      <!-- Tab Content -->
+      <div class="card-dark p-6 rounded-lg shadow-lg border border-primary-green/20">
+        <!-- Overview Tab -->
+        <div *ngIf="activeTab === 'overview'">
+          <h4 class="text-xl font-bold text-primary-green mb-4">Player Overview</h4>
+
+          <!-- Bio Section -->
+          <div class="bg-input p-4 rounded-lg mb-6">
+            <h5 class="text-lg font-semibold text-white mb-2">Biography</h5>
+            <p class="text-secondary">{{ player.bio || 'No biography provided.' }}</p>
+          </div>
+
+          <!-- Quick Stats -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="bg-input p-4 rounded-lg text-center">
+              <div class="text-3xl font-bold text-primary-green">{{ player.stats?.matches_played || 0 }}</div>
+              <div class="text-secondary text-sm">Matches</div>
+            </div>
+            <div class="bg-input p-4 rounded-lg text-center">
+              <div class="text-3xl font-bold text-primary-green">{{ player.stats?.goals || 0 }}</div>
+              <div class="text-secondary text-sm">Goals</div>
+            </div>
+            <div class="bg-input p-4 rounded-lg text-center">
+              <div class="text-3xl font-bold text-primary-green">{{ player.stats?.assists || 0 }}</div>
+              <div class="text-secondary text-sm">Assists</div>
+            </div>
+            <div class="bg-input p-4 rounded-lg text-center">
+              <div class="text-3xl font-bold text-primary-green">{{ player.videos?.length || 0 }}</div>
+              <div class="text-secondary text-sm">Media Items</div>
+            </div>
+          </div>
+
+          <!-- Featured Media -->
+          <div *ngIf="player.videos && player.videos.length > 0" class="mb-4">
+            <h5 class="text-lg font-semibold text-white mb-3">Featured Media</h5>
+            <div class="aspect-video bg-black rounded-lg overflow-hidden relative">
+              <!-- Video -->
+              <ng-container *ngIf="videoMedia.length > 0">
+                <div class="w-full h-full">
+                  <app-video-player
+                    [videoUrl]="videoMedia[0].url"
+                    [muted]="false"
+                    [autoplay]="false"
+                    (error)="onMediaError($event, videoMedia[0].url)">
+                  </app-video-player>
+                </div>
+              </ng-container>
+
+              <!-- Image -->
+              <img *ngIf="videoMedia.length === 0 && imageMedia.length > 0"
+                   [appLazyLoad]="imageMedia[0].url"
+                   [placeholderSrc]="'assets/images/placeholder.svg'"
+                   [errorSrc]="'assets/images/error.svg'"
+                   [width]="800"
+                   [height]="450"
+                   [format]="'webp'"
+                   class="w-full h-full object-contain"
+                   alt="Featured media" />
+              <div *ngIf="videoMedia.length === 0 && imageMedia.length === 0"
+                   class="w-full h-full flex items-center justify-center text-secondary">
+                No media available
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics Tab -->
+        <div *ngIf="activeTab === 'statistics'">
+          <h4 class="text-xl font-bold text-primary-green mb-4">Performance Statistics</h4>
+
+          <!-- Main Stats -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Match Stats -->
+            <div class="bg-input p-4 rounded-lg">
+              <h5 class="text-lg font-semibold text-white mb-3">Match Statistics</h5>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Matches Played</span>
+                    <span class="text-white font-medium">{{ player.stats?.matches_played || 0 }}</span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-primary-green h-2 rounded-full"
+                         [style.width.%]="(player.stats?.matches_played || 0) / 100 * 100"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Goals</span>
+                    <span class="text-white font-medium">{{ player.stats?.goals || 0 }}</span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-primary-green h-2 rounded-full"
+                         [style.width.%]="(player.stats?.goals || 0) / 50 * 100"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Assists</span>
+                    <span class="text-white font-medium">{{ player.stats?.assists || 0 }}</span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-primary-green h-2 rounded-full"
+                         [style.width.%]="(player.stats?.assists || 0) / 30 * 100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Discipline Stats -->
+            <div class="bg-input p-4 rounded-lg">
+              <h5 class="text-lg font-semibold text-white mb-3">Discipline</h5>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Yellow Cards</span>
+                    <span class="text-yellow-400 font-medium">{{ player.stats?.yellow_cards || 0 }}</span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-yellow-400 h-2 rounded-full"
+                         [style.width.%]="(player.stats?.yellow_cards || 0) / 20 * 100"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Red Cards</span>
+                    <span class="text-red-500 font-medium">{{ player.stats?.red_cards || 0 }}</span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-red-500 h-2 rounded-full"
+                         [style.width.%]="(player.stats?.red_cards || 0) / 5 * 100"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between mb-1">
+                    <span class="text-secondary">Goals per Match</span>
+                    <span class="text-white font-medium">
+                      {{ player.stats?.matches_played ? ((player.stats?.goals || 0) / (player.stats?.matches_played || 1)).toFixed(2) : '0.00' }}
+                    </span>
+                  </div>
+                  <div class="w-full bg-primary-dark rounded-full h-2">
+                    <div class="bg-primary-green h-2 rounded-full"
+                         [style.width.%]="(player.stats?.matches_played ? ((player.stats?.goals || 0) / (player.stats?.matches_played || 1)) : 0) / 2 * 100"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Additional Stats Info -->
+          <div class="bg-input p-4 rounded-lg mb-6 text-center">
+            <h5 class="text-lg font-semibold text-white mb-3">Additional Statistics</h5>
+            <p class="text-secondary">More detailed statistics will be available as the player's career progresses.</p>
+          </div>
+        </div>
+
+        <!-- Media Tab -->
+        <div *ngIf="activeTab === 'media'">
+          <h4 class="text-xl font-bold text-primary-green mb-4">Media Gallery</h4>
+
+          <!-- Media Info -->
+          <div class="flex flex-wrap gap-2 mb-4">
+            <div class="px-4 py-2 bg-input text-white rounded-md">
+              Total Media: {{ player.videos?.length || 0 }}
+            </div>
+            <div class="px-4 py-2 bg-input text-white rounded-md">
+              Videos: {{ videoMedia.length }}
+            </div>
+            <div class="px-4 py-2 bg-input text-white rounded-md">
+              Images: {{ imageMedia.length }}
+            </div>
+          </div>
+
+          <!-- Media Grid -->
+          <div *ngIf="isMediaLoading">
+            <app-media-grid-skeleton [itemCount]="6"></app-media-grid-skeleton>
+          </div>
+
+          <div *ngIf="!isMediaLoading && player.videos && player.videos.length > 0" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div *ngFor="let media of player.videos" class="bg-input rounded-lg overflow-hidden group">
+              <div class="aspect-video relative">
+                <ng-container *ngIf="media.type === 'video'">
+                  <!-- Video Container -->
+                  <div class="w-full h-full">
+                    <app-video-player
+                      [videoUrl]="media.url"
+                      [muted]="false"
+                      [autoplay]="false"
+                      (error)="onMediaError($event, media.url)">
+                    </app-video-player>
+                  </div>
+                </ng-container>
+
+                <!-- Image -->
+                <img *ngIf="media.type === 'image'"
+                     [appLazyLoad]="media.url"
+                     [placeholderSrc]="'assets/images/placeholder.svg'"
+                     [errorSrc]="'assets/images/error.svg'"
+                     [width]="400"
+                     [height]="300"
+                     [format]="'webp'"
+                     class="w-full h-full object-cover"
+                     alt="Media" />
+              </div>
+
+              <div class="p-3">
+                <p class="text-white font-medium truncate">{{ media.description || 'No description' }}</p>
+                <p class="text-secondary text-sm">{{ media.createdAt | dateFormat }}</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- No Media Message -->
+          <div *ngIf="!isMediaLoading && (!player.videos || player.videos.length === 0)" class="text-center py-10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-secondary mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+            </svg>
+            <p class="text-secondary text-lg">No media available</p>
+            <p class="text-secondary">This player hasn't uploaded any videos or images yet.</p>
+          </div>
+        </div>
+
+      
+      </div>
+    </div>
+
+    <!-- Error or Fallback -->
+    <ng-template #noProfile>
+      <div *ngIf="!isLoading" class="card-dark p-10 rounded-lg shadow-lg border border-primary-green/20 text-center">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 mx-auto text-secondary mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <h3 class="text-xl font-semibold text-white mb-2">Player Profile Not Found</h3>
+        <p class="text-secondary mb-6">The player profile you're looking for doesn't exist or you don't have permission to view it.</p>
+        <button class="btn-primary" onclick="history.back()">Go Back</button>
+      </div>
+    </ng-template>
+    <!-- Profile Image Modal  -->
+  <div *ngIf="showProfileImageModal"
+       class="fixed inset-0 z-50 flex items-center justify-center bg-black/90 backdrop-blur-sm animate-fadeIn"
+       (click)="closeProfileImageModal()"
+       (touchstart)="handleTouchStart($event)"
+       (touchend)="handleTouchEnd($event)">
+    <div class="relative max-w-5xl w-full h-full flex items-center justify-center p-4 animate-zoomIn">
+      <!-- Close Button -->
+      <button (click)="closeProfileImageModal()"
+              class="absolute top-4 right-4 z-10 p-2 text-white hover:text-primary-green transition-colors duration-300">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+
+      <!-- Image Container -->
+      <div class="relative max-h-[90vh] max-w-full rounded-lg overflow-hidden" (click)="$event.stopPropagation()">
+        <img *ngIf="profileImageToShow"
+             [appLazyLoad]="profileImageToShow"
+             [placeholderSrc]="'assets/images/placeholder.svg'"
+             [errorSrc]="'assets/images/error.svg'"
+             [width]="1200"
+             [height]="1200"
+             [quality]="100"
+             [format]="'webp'"
+             alt="Profile Image"
+             (dblclick)="toggleImageZoom()"
+             [class.cursor-zoom-in]="!isImageZoomed"
+             [class.cursor-zoom-out]="isImageZoomed"
+             [class.max-h-[90vh]]="!isImageZoomed"
+             [class.max-w-full]="!isImageZoomed"
+             [class.object-contain]="!isImageZoomed"
+             [class.object-cover]="isImageZoomed"
+             [class.w-auto]="!isImageZoomed"
+             [class.h-auto]="!isImageZoomed"
+             [class.w-[150%]]="isImageZoomed"
+             [class.h-auto]="isImageZoomed"
+             [class.transition-all]="true"
+             [class.duration-300]="true" />
+
+        <!-- Zoom instructions -->
+        <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-black/70 text-white text-sm px-3 py-1 rounded-full">
+          Double-click to {{ isImageZoomed ? 'zoom out' : 'zoom in' }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
