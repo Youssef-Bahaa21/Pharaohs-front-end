@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, tap, BehaviorSubject } from 'rxjs';
+import { Observable, tap, BehaviorSubject, catchError } from 'rxjs';
 import { AuthResponse, LoginRequest, RegisterRequest, User } from '../../models/models';
 import { NotificationService } from '../notification/notification.service';
 import { environment } from '../../environments/environments';
@@ -33,14 +33,27 @@ export class AuthService {
     );
   }
 
-  // Register new user and authenticate
+  // Register new user and authenticate - using proxy to bypass CORS issues
   register(data: RegisterRequest): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data).pipe(
+    // Try the CORS proxy endpoint first
+    return this.http.post<AuthResponse>(`${this.baseUrl}/register-proxy`, data).pipe(
       tap(response => {
         localStorage.setItem('auth_token', response.token);
         localStorage.setItem('current_user', JSON.stringify(response.user));
         this.currentUserSubject.next(response.user);
         this.notificationService.initialize();
+      }),
+      catchError(error => {
+        console.error('Proxy registration failed, trying standard endpoint', error);
+        // Fall back to the standard endpoint if proxy fails
+        return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data).pipe(
+          tap(response => {
+            localStorage.setItem('auth_token', response.token);
+            localStorage.setItem('current_user', JSON.stringify(response.user));
+            this.currentUserSubject.next(response.user);
+            this.notificationService.initialize();
+          })
+        );
       })
     );
   }
