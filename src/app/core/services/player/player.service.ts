@@ -1,4 +1,4 @@
-import { HttpClient, HttpEvent } from '@angular/common/http';
+import { HttpClient, HttpEvent, HttpContext, HttpContextToken } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 import { Observable, from, forkJoin } from 'rxjs';
 import { map, mergeMap } from 'rxjs/operators';
@@ -6,6 +6,9 @@ import { PlayerProfile, Invitation, Video, Comment, Tryout, PlayerStats, MediaIt
 import { environment } from '../../environments/environments';
 import { FileCompressionService } from '../image/file-compression.service';
 import { Router } from '@angular/router';
+
+// Create a timeout token for HttpContext
+const TIMEOUT_TOKEN = new HttpContextToken<number>(() => 30000); // Default 30s
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
@@ -47,6 +50,20 @@ export class PlayerService {
       });
     }
 
+    // For large videos, skip compression entirely
+    const TEN_MB = 10 * 1024 * 1024; // 10MB in bytes
+    if (isVideo && file.size > TEN_MB) {
+      console.log(`Large video detected (${(file.size / 1024 / 1024).toFixed(2)}MB). Skipping compression.`);
+
+      // HTTP request with longer timeout for video uploads (90 seconds)
+      const ctx = new HttpContext().set(TIMEOUT_TOKEN, 90000);
+      return this.http.post(`${this.baseUrl}/upload`, formData, {
+        reportProgress: true,
+        observe: 'events',
+        context: ctx
+      });
+    }
+
     // Set compression options based on file type
     const options = isImage
       ? {
@@ -78,10 +95,12 @@ export class PlayerService {
         // Add the compressed file
         newFormData.append('file', compressedFile, compressedFile.name);
 
-        // Send the compressed file
+        // Send the compressed file with appropriate timeout
+        const ctx = isVideo ? new HttpContext().set(TIMEOUT_TOKEN, 90000) : undefined;
         return this.http.post(`${this.baseUrl}/upload`, newFormData, {
           reportProgress: true,
-          observe: 'events'
+          observe: 'events',
+          context: ctx
         });
       })
     );

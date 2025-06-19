@@ -50,6 +50,13 @@ export class FileCompressionService {
         if (file.type.startsWith('image/')) {
             return from(this.compressImage(file, mergedOptions));
         } else if (file.type.startsWith('video/')) {
+            // Skip compression for large videos (greater than 5MB)
+            // Video compression is resource-intensive and slow for large files
+            const FIVE_MB = 5 * 1024 * 1024; // 5MB in bytes
+            if (file.size > FIVE_MB) {
+                console.log(`Video too large for browser compression (${(file.size / 1024 / 1024).toFixed(2)}MB). Uploading original file.`);
+                return from(Promise.resolve(file));
+            }
             return from(this.compressVideo(file, mergedOptions));
         }
 
