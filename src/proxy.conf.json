@@ -1,11 +1,11 @@
 {
     "/api": {
-        "target": "https://pharaoh-s-backend.railway.app",
-        "secure": true,
+        "target": "http://localhost:3000",
+        "secure": false,
         "changeOrigin": true,
         "logLevel": "debug",
         "headers": {
-            "Origin": "https://pharaohs-front-end.vercel.app"
+            "Origin": "http://localhost:4200"
         }
     }
 }
