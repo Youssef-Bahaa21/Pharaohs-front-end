@@ -412,17 +412,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     formData.append('type', this.uploadType);
     formData.append('description', this.uploadDescription);
 
-    this.httpClient.post<any>(`${environment.apiUrl}/player/upload`, formData, {
-      reportProgress: true,
-      observe: 'events'
-    }).pipe(
-      catchError((error: HttpErrorResponse) => {
-        this.isUploading = false;
-        this.uploadError = error.message || 'An error occurred during upload';
-        this.toastService.error('Upload failed. Please try again.');
-        return throwError(() => error);
-      })
-    ).subscribe({
+    this.playerService.uploadMedia(formData).subscribe({
       next: (event: HttpEvent<any>) => {
         if (event.type === HttpEventType.UploadProgress && event.total) {
           this.uploadProgress = Math.round(100 * (event.loaded / event.total));
@@ -1621,17 +1611,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
         deletionInProgress = false;
 
-        this.httpClient.post<any>(`${environment.apiUrl}/player/upload`, formData, {
-          reportProgress: true,
-          observe: 'events'
-        }).pipe(
-          catchError((error: HttpErrorResponse) => {
-            this.isUpdating = false;
-            this.updateError = error.message || 'An error occurred during update';
-            this.toastService.error('Update failed. Please try again.');
-            return throwError(() => error);
-          })
-        ).subscribe({
+        this.playerService.uploadMedia(formData).subscribe({
           next: (event: HttpEvent<any>) => {
             if (event.type === HttpEventType.UploadProgress && event.total) {
               this.updateProgress = Math.round(100 * (event.loaded / event.total));
