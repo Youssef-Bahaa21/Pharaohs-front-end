@@ -1,0 +1,8 @@
+{
+    "/api": {
+        "target": "https://pharaoh-s-backend.railway.app",
+        "secure": true,
+        "changeOrigin": true,
+        "logLevel": "debug"
+    }
+}

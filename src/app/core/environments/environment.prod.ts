@@ -1,6 +1,6 @@
 export const environment = {
     production: true,
-    apiUrl: 'https://pharaoh-s-backend.railway.app/api',
+    apiUrl: '/api',
     cloudinary: {
         cloudName: 'dk0szadna',
         uploadPreset: 'pharaohs_uploads'
