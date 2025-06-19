@@ -11,10 +11,8 @@ export class ScoutService {
   private http = inject(HttpClient);
   private compressionService = inject(FileCompressionService);
 
-  // Use direct Railway URL in production, local API in development
-  private baseUrl = environment.production ?
-    'https://pharaoh-s-backend.railway.app/api/scout' :
-    `${environment.apiUrl}/scout`;
+  // Use environment variables for API URL
+  private baseUrl = `${environment.apiUrl}/scout`;
 
   constructor() {
     console.log('Scout Service initialized with baseUrl:', this.baseUrl);

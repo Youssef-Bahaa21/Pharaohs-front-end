@@ -8,6 +8,7 @@ import { ScoutService } from '../../../core/services/scout/scout.service';
 import { Subscription, of } from 'rxjs';
 import { filter, switchMap, catchError, tap } from 'rxjs/operators';
 import { NotificationBellComponent } from '../../notification-bell/notification-bell.component';
+import { environment } from '../../../core/environments/environments';
 
 @Component({
   standalone: true,
@@ -52,7 +53,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (playerProfile && playerProfile.profileImage) {
             this.userProfileImage = playerProfile.profileImage.startsWith('http')
               ? playerProfile.profileImage
-              : `http://localhost:3000${playerProfile.profileImage}`;
+              : `${environment.baseUrl}${playerProfile.profileImage}`;
           } else {
             this.userProfileImage = null;
           }
@@ -70,7 +71,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
           if (scoutProfile && scoutProfile.profileImage) {
             this.userProfileImage = scoutProfile.profileImage.startsWith('http')
               ? scoutProfile.profileImage
-              : `http://localhost:3000${scoutProfile.profileImage}`;
+              : `${environment.baseUrl}${scoutProfile.profileImage}`;
             console.log('Setting scout profile image to:', this.userProfileImage);
           } else {
             // When there's no profile image, explicitly set it to the default

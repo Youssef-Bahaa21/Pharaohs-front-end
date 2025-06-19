@@ -16,6 +16,7 @@ import { FeatureHeaderComponent } from '../../../shared/components/feature-heade
 import { SimpleToastService } from '../../../shared/components/toast/simple-toast.service';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent, ConfirmDialogData } from '../../../shared/components/confirm-dialog/confirm-dialog.component';
+import { environment } from '../../../core/environments/environments';
 
 @Component({
   standalone: true,
@@ -62,7 +63,7 @@ export class ShortlistComponent implements OnInit {
           playerWithId.id = playerWithId.player_id;
 
           if (playerWithId.profileImage && !playerWithId.profileImage.startsWith('http')) {
-            playerWithId.profileImage = `http://localhost:3000${playerWithId.profileImage}`;
+            playerWithId.profileImage = `${environment.baseUrl}${playerWithId.profileImage}`;
           }
 
           if (!playerWithId.stats) {
@@ -97,7 +98,7 @@ export class ShortlistComponent implements OnInit {
   loadDetailedPlayerInfo(): void {
     this.shortlist.forEach((player, index) => {
       if (player.id) {
-        this.httpClient.get<PlayerProfile>(`http://localhost:3000/api/player/public-profile/${player.id}`).subscribe({
+        this.httpClient.get<PlayerProfile>(`${environment.apiUrl}/player/public-profile/${player.id}`).subscribe({
           next: (detailedProfile) => {
             console.log(`Detailed profile for player ${player.id}:`, detailedProfile);
 
@@ -107,7 +108,7 @@ export class ShortlistComponent implements OnInit {
               profileImage: detailedProfile.profileImage ?
                 (detailedProfile.profileImage.startsWith('http') ?
                   detailedProfile.profileImage :
-                  `http://localhost:3000${detailedProfile.profileImage}`) :
+                  `${environment.baseUrl}${detailedProfile.profileImage}`) :
                 player.profileImage
             };
           },
