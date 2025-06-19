@@ -12,10 +12,8 @@ export class AuthService {
   private router = inject(Router);
   private notificationService = inject(NotificationService);
 
-  // Use direct Railway URL in production, local API in development
-  private baseUrl = environment.production ?
-    'https://pharaoh-s-backend.railway.app/api/auth' :
-    `${environment.apiUrl}/auth`;
+  // Use environment apiUrl for consistency
+  private baseUrl = `${environment.apiUrl}/auth`;
 
   // Observable stream of the current authenticated user
   private currentUserSubject = new BehaviorSubject<User | null>(this.getCurrentUser());

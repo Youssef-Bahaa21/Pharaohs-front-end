@@ -3,6 +3,9 @@
         "target": "https://pharaoh-s-backend.railway.app",
         "secure": true,
         "changeOrigin": true,
-        "logLevel": "debug"
+        "logLevel": "debug",
+        "headers": {
+            "Origin": "https://pharaohs-front-end.vercel.app"
+        }
     }
 }
