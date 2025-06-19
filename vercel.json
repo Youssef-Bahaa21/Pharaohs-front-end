@@ -1,0 +1,56 @@
+{
+    "version": 2,
+    "routes": [
+        {
+            "src": "/api/auth/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/auth/$1"
+        },
+        {
+            "src": "/api/player/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/player/$1"
+        },
+        {
+            "src": "/api/scout/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/scout/$1"
+        },
+        {
+            "src": "/api/admin/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/admin/$1"
+        },
+        {
+            "src": "/api/notifications/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/notifications/$1"
+        },
+        {
+            "src": "/api/(.*)",
+            "dest": "https://pharaoh-s-backend.railway.app/api/$1"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/$1"
+        }
+    ],
+    "headers": [
+        {
+            "source": "/api/(.*)",
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Credentials",
+                    "value": "true"
+                },
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "https://pharaohs-front-end.vercel.app"
+                },
+                {
+                    "key": "Access-Control-Allow-Methods",
+                    "value": "GET,OPTIONS,PATCH,DELETE,POST,PUT"
+                },
+                {
+                    "key": "Access-Control-Allow-Headers",
+                    "value": "X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version, Authorization"
+                }
+            ]
+        }
+    ]
+}
