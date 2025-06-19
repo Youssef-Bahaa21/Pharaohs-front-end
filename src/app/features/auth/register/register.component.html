@@ -124,19 +124,47 @@
             <!-- Date of Birth -->
             <div class="form-group">
               <label class="text-sm text-primary-green/80 mb-2 block">Date of Birth</label>
-              <div class="relative group">
-                <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-primary-green mr-3" viewBox="0 0 20 20" fill="currentColor">
-                    <path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd" />
-                  </svg>
-                  <input
-                    type="date"
-                    formControlName="date_of_birth"
-                    class="w-full bg-transparent text-white focus:outline-none"
-                    placeholder="Date of Birth"
-                    [max]="today"
-                  />
+              <div class="grid grid-cols-3 gap-2">
+                <!-- Day Dropdown -->
+                <div class="relative group">
+                  <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                    <select
+                      formControlName="dobDay"
+                      class="w-full bg-transparent text-white focus:outline-none"
+                    >
+                      <option value="" disabled selected class="bg-[#222222] text-white">Day</option>
+                      <option *ngFor="let day of days" [value]="day" class="bg-[#222222] text-white">{{day}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Month Dropdown -->
+                <div class="relative group">
+                  <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                    <select
+                      formControlName="dobMonth"
+                      class="w-full bg-transparent text-white focus:outline-none"
+                    >
+                      <option value="" disabled selected class="bg-[#222222] text-white">Month</option>
+                      <option *ngFor="let month of months" [value]="month" class="bg-[#222222] text-white">{{month}}</option>
+                    </select>
+                  </div>
+                </div>
+
+                <!-- Year Dropdown -->
+                <div class="relative group">
+                  <div class="absolute inset-0 bg-primary-green/20 rounded-lg blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  <div class="relative flex items-center bg-black/50 border border-primary-green/30 rounded-lg px-4 py-3 focus-within:border-primary-green/70 transition-all duration-300 group-hover:border-primary-green/50">
+                    <select
+                      formControlName="dobYear"
+                      class="w-full bg-transparent text-white focus:outline-none"
+                    >
+                      <option value="" disabled selected class="bg-[#222222] text-white">Year</option>
+                      <option *ngFor="let year of years" [value]="year" class="bg-[#222222] text-white">{{year}}</option>
+                    </select>
+                  </div>
                 </div>
               </div>
             </div>
