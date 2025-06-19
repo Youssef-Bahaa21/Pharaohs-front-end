@@ -11,7 +11,11 @@ export class AuthService {
   private http = inject(HttpClient);
   private router = inject(Router);
   private notificationService = inject(NotificationService);
-  private baseUrl = `${environment.apiUrl}/auth`;
+
+  // Use direct Railway URL in production, local API in development
+  private baseUrl = environment.production ?
+    'https://pharaoh-s-backend.railway.app/api/auth' :
+    `${environment.apiUrl}/auth`;
 
   // Observable stream of the current authenticated user
   private currentUserSubject = new BehaviorSubject<User | null>(this.getCurrentUser());
@@ -19,6 +23,7 @@ export class AuthService {
 
   constructor() {
     this.currentUserSubject.next(this.getCurrentUser());
+    console.log('Auth Service initialized with baseUrl:', this.baseUrl);
   }
 
   // Authenticate user and store credentials
@@ -35,6 +40,7 @@ export class AuthService {
 
   // Register new user and authenticate
   register(data: RegisterRequest): Observable<AuthResponse> {
+    console.log('Registering user, API endpoint:', `${this.baseUrl}/register`);
     return this.http.post<AuthResponse>(`${this.baseUrl}/register`, data).pipe(
       tap(response => {
         localStorage.setItem('auth_token', response.token);

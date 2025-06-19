@@ -9,7 +9,11 @@ import { Notification, NotificationResponse } from '../../models/models';
   providedIn: 'root'
 })
 export class NotificationService {
-  private apiUrl = `${environment.apiUrl}/notifications`;
+  // Use direct Railway URL in production, local API in development
+  private apiUrl = environment.production ?
+    'https://pharaoh-s-backend.railway.app/api/notifications' :
+    `${environment.apiUrl}/notifications`;
+
   private unreadCountSubject = new BehaviorSubject<number>(0);
   unreadCount$ = this.unreadCountSubject.asObservable();
 
@@ -17,6 +21,7 @@ export class NotificationService {
     if (localStorage.getItem('auth_token')) {
       this.startPollingUnreadCount();
     }
+    console.log('Notification Service initialized with apiUrl:', this.apiUrl);
   }
 
   // Fetch paginated notifications and update unread count

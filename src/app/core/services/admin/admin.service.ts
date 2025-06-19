@@ -42,7 +42,15 @@ export interface LogFilter {
 @Injectable({ providedIn: 'root' })
 export class AdminService {
   private http = inject(HttpClient);
-  private baseUrl = `${environment.apiUrl}/admin`;
+
+  // Use direct Railway URL in production, local API in development
+  private baseUrl = environment.production ?
+    'https://pharaoh-s-backend.railway.app/api/admin' :
+    `${environment.apiUrl}/admin`;
+
+  constructor() {
+    console.log('Admin Service initialized with baseUrl:', this.baseUrl);
+  }
 
   // Video Management API
   getAllVideos(): Observable<Video[]> {

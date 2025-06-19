@@ -10,7 +10,15 @@ import { FileCompressionService } from '../image/file-compression.service';
 export class ScoutService {
   private http = inject(HttpClient);
   private compressionService = inject(FileCompressionService);
-  private baseUrl = `${environment.apiUrl}/scout`;
+
+  // Use direct Railway URL in production, local API in development
+  private baseUrl = environment.production ?
+    'https://pharaoh-s-backend.railway.app/api/scout' :
+    `${environment.apiUrl}/scout`;
+
+  constructor() {
+    console.log('Scout Service initialized with baseUrl:', this.baseUrl);
+  }
 
   // Search for players with specified filters
   searchPlayers(filters: SearchFilters): Observable<SearchResponse> {

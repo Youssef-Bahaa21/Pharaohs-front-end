@@ -5,12 +5,22 @@ import { map, mergeMap } from 'rxjs/operators';
 import { PlayerProfile, Invitation, Video, Comment, Tryout, PlayerStats, MediaItem, DashboardData } from '../../models/models';
 import { environment } from '../../environments/environments';
 import { FileCompressionService } from '../image/file-compression.service';
+import { Router } from '@angular/router';
 
 @Injectable({ providedIn: 'root' })
 export class PlayerService {
   private http = inject(HttpClient);
+  private router = inject(Router);
   private compressionService = inject(FileCompressionService);
-  private baseUrl = `${environment.apiUrl}/player`;
+
+  // Use direct Railway URL in production, local API in development
+  private baseUrl = environment.production ?
+    'https://pharaoh-s-backend.railway.app/api/player' :
+    `${environment.apiUrl}/player`;
+
+  constructor() {
+    console.log('Player Service initialized with baseUrl:', this.baseUrl);
+  }
 
   // Upload media files with progress tracking and compression
   uploadMedia(formData: FormData): Observable<HttpEvent<any>> {
