@@ -174,7 +174,7 @@ export class FeedComponent implements OnInit, OnDestroy {
           ...player,
           videos: player.videos?.map((video: Video) => ({
             ...video,
-            url: video.url?.startsWith('http') ? video.url : `http://localhost:3000${video.url}`,
+            url: video.url?.startsWith('http') ? video.url : `${environment.baseUrl}${video.url}`,
             type: video.type || (video.url?.match(/\.(mp4|webm)$/i) ? 'video' : 'image')
           })) || []
         }));
@@ -412,7 +412,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     formData.append('type', this.uploadType);
     formData.append('description', this.uploadDescription);
 
-    this.httpClient.post<any>('http://localhost:3000/api/player/upload', formData, {
+    this.httpClient.post<any>(`${environment.apiUrl}/player/upload`, formData, {
       reportProgress: true,
       observe: 'events'
     }).pipe(
@@ -580,7 +580,7 @@ export class FeedComponent implements OnInit, OnDestroy {
           ...player,
           videos: player.videos?.map((video: Video) => ({
             ...video,
-            url: video.url?.startsWith('http') ? video.url : `http://localhost:3000${video.url}`,
+            url: video.url?.startsWith('http') ? video.url : `${environment.baseUrl}${video.url}`,
             type: video.type || (video.url?.match(/\.(mp4|webm)$/i) ? 'video' : 'image')
           })) || []
         }));
@@ -987,7 +987,7 @@ export class FeedComponent implements OnInit, OnDestroy {
           ...player,
           videos: player.videos?.map((video: Video) => ({
             ...video,
-            url: video.url?.startsWith('http') ? video.url : `http://localhost:3000${video.url}`,
+            url: video.url?.startsWith('http') ? video.url : `${environment.baseUrl}${video.url}`,
             type: video.type || (video.url?.match(/\.(mp4|webm)$/i) ? 'video' : 'image')
           })) || []
         }));
@@ -1065,7 +1065,7 @@ export class FeedComponent implements OnInit, OnDestroy {
     }
 
     if (!url.startsWith('http') && !url.startsWith('/')) {
-      url = `http://localhost:3000/${url.replace(/^\/+/, '')}`;
+      url = `${environment.baseUrl}/${url.replace(/^\/+/, '')}`;
     }
 
     const cacheBuster = `?t=${new Date().getTime()}`;
@@ -1113,7 +1113,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
           let fixedUrl = url;
           if (!fixedUrl.startsWith('http') && !fixedUrl.startsWith('/')) {
-            fixedUrl = `http://localhost:3000/${fixedUrl.replace(/^\/+/, '')}`;
+            fixedUrl = `${environment.baseUrl}/${fixedUrl.replace(/^\/+/, '')}`;
           }
 
           const timestamp = new Date().getTime();
@@ -1149,7 +1149,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
   // Loads scout-specific data like shortlist and tryouts
   loadScoutData(): void {
-    const apiUrl = environment.apiUrl || 'http://localhost:3000/api';
+    const apiUrl = environment.apiUrl;
 
     console.log('[LoadScoutData] Loading scout data directly...');
 
@@ -1621,7 +1621,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
         deletionInProgress = false;
 
-        this.httpClient.post<any>('http://localhost:3000/api/player/upload', formData, {
+        this.httpClient.post<any>(`${environment.apiUrl}/player/upload`, formData, {
           reportProgress: true,
           observe: 'events'
         }).pipe(
@@ -1782,7 +1782,7 @@ export class FeedComponent implements OnInit, OnDestroy {
 
           const formattedVideos = videos.map((video: any) => ({
             ...video,
-            url: video.url?.startsWith('http') ? video.url : `http://localhost:3000${video.url}`,
+            url: video.url?.startsWith('http') ? video.url : `${environment.baseUrl}${video.url}`,
             type: video.type || (video.url?.match(/\.(mp4|webm)$/i) ? 'video' : 'image'),
             playerId: this.currentUserId
           }));
@@ -1801,7 +1801,7 @@ export class FeedComponent implements OnInit, OnDestroy {
                 ...player,
                 videos: player.videos?.map((video: Video) => ({
                   ...video,
-                  url: video.url?.startsWith('http') ? video.url : `http://localhost:3000${video.url}`,
+                  url: video.url?.startsWith('http') ? video.url : `${environment.baseUrl}${video.url}`,
                   type: video.type || (video.url?.match(/\.(mp4|webm)$/i) ? 'video' : 'image')
                 })) || []
               }));
